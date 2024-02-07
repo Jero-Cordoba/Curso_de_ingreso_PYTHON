@@ -49,7 +49,7 @@ class App(customtkinter.CTk):
         
         suma = operador_a + operador_b
         
-        alert(title="Suma", message=f"El resultado de la suma es: {suma}")
+        alert("Ejercicio 6", f"El resultado de la suma es: {suma}")#Una pregunta ¿Puedo usar el format así o tiene que ser de otra manera?
         
 if __name__ == "__main__":
     app = App()
