@@ -5,8 +5,8 @@ from tkinter.simpledialog import askstring as prompt
 import customtkinter
 
 '''
-nombre:
-apellido:
+nombre: Jerónimo
+apellido: Córdoba
 ---
 TP: ES_Pinturas
 ---
@@ -48,13 +48,18 @@ class App(customtkinter.CTk):
         self.btn_convertir_f_c.grid(row=4, pady=10, columnspan=2, sticky="nsew")
     
     def btn_convertir_c_f_on_click(self):
-        pass
+        temperatura_Celsius = float(self.txt_temperatura_c.get())
+        temperatura_Fahrenheit = (temperatura_Celsius * 9/5) + 32
+        alert("TP2. °C a °F", f"El cambio de temperatura de Celsius a Fahrenheit es: {temperatura_Fahrenheit}")
 
     def btn_convertir_f_c_on_click(self):
-        pass
+        temperatura_Fahrenheit = float(self.txt_temperatura_f.get())
+        temperatura_Celsius = (temperatura_Fahrenheit - 32) * 5/9
+        alert("TP2. °C a °F", f"El cambio de temperatura de Fahrenheit a Celsius es: {temperatura_Celsius}")
     
     
 if __name__ == "__main__":
     app = App()
     app.geometry("300x300")
     app.mainloop()
+#Pregunta, porque dice "Pinturas"??
