@@ -2,7 +2,7 @@ import tkinter
 from tkinter.messagebox import showinfo as alert
 from tkinter.messagebox import askyesno as question
 from tkinter.simpledialog import askstring as prompt
-import customtkinter
+import customtkinter, math
 
 '''
 nombre: Jerónimo
@@ -53,7 +53,7 @@ class App(customtkinter.CTk):
         
         cantidad_materiales = float(self.txt_toneladas.get())
         kilos_maximo = 3500
-        camiones = (cantidad_materiales / kilos_maximo)
+        camiones = round((cantidad_materiales / kilos_maximo),0)
         
         alert("TP3. Camiones", f"La cantidad de camiones es: {camiones}")
 
@@ -61,7 +61,7 @@ class App(customtkinter.CTk):
         
         distancia = float(self.txt_kilometros.get())
         velocidad = 90 #km/h
-        tiempo_llegada = (distancia / velocidad)
+        tiempo_llegada = round((distancia / velocidad),2)
         
         alert ("TP3. Tiempo", f"El tiempo de llegada es de: {tiempo_llegada} horas")
         
