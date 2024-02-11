@@ -43,7 +43,62 @@ class App(customtkinter.CTk):
 
 
     def btn_calcular_on_click(self):
-        pass
+        
+        marca = self.combobox_marca.get()
+        cantidad = int(self.combobox_cantidad.get())
+        if marca == "ArgentinaLuz":
+            if cantidad >= 6:
+                descuento = 0.5
+            elif marca == "FelipeLamparas":
+                descuento = 0.4
+            elif marca == "JeLuz":
+                descuento = 0.3
+            elif marca == "HazIluminacion":
+                descuento = 0.25
+            elif marca == "Osram":
+                descuento = 0.2
+            else:
+                descuento = 0.15
+        elif marca == "FelipeLamparas":
+            if cantidad >= 6:
+                descuento = 0.5
+            elif marca == "JeLuz":
+                descuento = 0.4
+            elif marca == "HazIluminacion":
+                descuento = 0.3
+            elif marca == "Osram":
+                descuento = 0.25
+            else:
+                descuento = 0.2
+        elif marca == "JeLuz":
+            if cantidad >= 6:
+                descuento = 0.5
+            elif marca == "HazIluminacion":
+                descuento = 0.4
+            elif marca == "Osram":
+                descuento = 0.3
+            else:
+                descuento = 0.25
+        elif marca == "HazIluminacion":
+            if cantidad >= 6:
+                descuento = 0.5
+            elif marca == "Osram":
+                descuento = 0.4
+            else:
+                descuento = 0.3
+        elif marca == "Osram":
+            if cantidad >= 6:
+                descuento = 0.5
+            else:
+                descuento = 0.4
+        else:
+            descuento = 0.15
+            
+        importe = 800
+        importe_actualizado = importe - (importe * (descuento / 100))
+        
+        alert("TP-4 iluminacion", f"El importe actualizado con el descuento es de:" + str(importe_actualizado))
+        
         
     
 if __name__ == "__main__":

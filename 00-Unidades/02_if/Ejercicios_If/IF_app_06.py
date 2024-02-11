@@ -35,15 +35,17 @@ class App(customtkinter.CTk):
 
 
     def btn_mostrar_on_click(self):
-        match int(self.txt_edad.get()):
-            case 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9:
-                alert("IF-Ejercicio 6", "Menor de 10")
-            case 10 | 11 | 12:
-                alert("IF-Ejercicio 6", "Pre-adolescente")
-            case 13 | 14 | 15 | 16 | 17:
-                alert("IF-Ejercicio 6", "Adolescente")
-            case 18 |_:
-                alert("IF-Ejercicio 6", "MAYOR")
+        
+        edad = int(self.txt_edad.get())
+        
+        if edad >= 10:
+            alert("Es un niño/a")
+        elif edad >= 11 and edad <= 13:
+            alert("Es adolescente")
+        elif edad >= 14 and edad <= 17:
+            alert("Es pre-adolescente")
+        else:
+            alert("IF-Ejercicio 6", "Es mayor")
 
         
         
