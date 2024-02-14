@@ -4,10 +4,9 @@ from tkinter.messagebox import askyesno as question
 from tkinter.simpledialog import askstring as prompt
 import customtkinter
 
-
 '''
-nombre:
-apellido:
+nombre: Jerónimo
+apellido: Córdoba
 ---
 Ejercicio: Match_04
 ---
@@ -18,8 +17,6 @@ en función del mes seleccionado:
     Si tiene 30 días
     Si tiene 31 días
 '''
-
-
 class App(customtkinter.CTk):
     
     def __init__(self):
@@ -36,9 +33,17 @@ class App(customtkinter.CTk):
         self.btn_informar = customtkinter.CTkButton(master=self, text="Informar", command=self.btn_informar_on_click)
         self.btn_informar.grid(row=2, pady=20, columnspan=2, sticky="nsew")
         
-    
     def btn_informar_on_click(self):
+        mes = self.combobox_mes.get()
+        match mes:
+            case "febrero":
+                mensaje = ("Este mes no tiene más 29 días")
+            case "enero"|"marzo"|"mayo"|"julio"|"agosto"|"octubre"|"diciembre":
+                mensaje = ("Este mes tiene 30 días")
+            case "abril"|"junio"|"septiembre"|"noviembre":
+                mensaje = ("Este mes tiene 31 día")
         pass
+        alert("Match-04", mensaje)
     
 if __name__ == "__main__":
     app = App()

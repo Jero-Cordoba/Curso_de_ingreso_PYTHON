@@ -4,10 +4,9 @@ from tkinter.messagebox import askyesno as question
 from tkinter.simpledialog import askstring as prompt
 import customtkinter
 
-
 '''
-nombre:
-apellido:
+nombre: Jerónimo
+apellido: Córdoba
 ---
 Ejercicio: Match_08
 ---
@@ -16,8 +15,6 @@ Obtener el destino seleccionado en el combobox_destino, luego al presionar el bo
 ‘Informar’ indicar mediante alert si en el destino hace frío o calor la mayoría 
 de las estaciones del año.
 '''
-
-
 class App(customtkinter.CTk):
     
     def __init__(self):
@@ -34,7 +31,19 @@ class App(customtkinter.CTk):
         
     
     def btn_informar_on_click(self):
+        destino = self.combobox_destino.get()
+        
+        match destino:
+            case 'Bariloche':
+                mensaje = 'Hace frio'
+            case 'Usuhuaia':
+                mensaje = 'Hace calor'
+            case 'Mar del plata':
+                mensaje = 'Hace calor'
+            case 'Cataratas':
+                mensaje = 'Hace frio'
         pass
+        alert("Match-08", mensaje)
     
     
 if __name__ == "__main__":

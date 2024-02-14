@@ -4,10 +4,9 @@ from tkinter.messagebox import askyesno as question
 from tkinter.simpledialog import askstring as prompt
 import customtkinter
 
-
 '''
-nombre:
-apellido:
+nombre: Jerónimo
+apellido: Córdoba
 ---
 Ejercicio: Match_05
 ---
@@ -16,7 +15,6 @@ Obtener la hora ingresada en el txt_hora. Al presionar el botón ‘Informar’
 mostrar mediante alert el mensaje ‘Es de mañana’ 
 si la hora ingresada está entre las 7 y las 11
 '''
-
 
 class App(customtkinter.CTk):
     
@@ -35,9 +33,13 @@ class App(customtkinter.CTk):
         
     
     def btn_informar_on_click(self):
-        pass
-    
-    
+        hora = self.txt_hora.get()
+        match hora:
+            case "7"|"8"|"9"|"10"|"11":
+                mensaje = "Es de día"
+        pass 
+        alert("Match-05", mensaje)
+
 if __name__ == "__main__":
     app = App()
     app.geometry("300x300")

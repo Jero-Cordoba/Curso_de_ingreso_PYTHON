@@ -4,11 +4,9 @@ from tkinter.messagebox import askyesno as question
 from tkinter.simpledialog import askstring as prompt
 import customtkinter
 
-
 '''
-
-nombre:
-apellido:
+nombre: Jerónimo
+apellido: Córdoba
 ---
 Ejercicio: Match_01
 ---
@@ -20,11 +18,8 @@ en función del mes seleccionado:
     Si el mes seleccionado es Marzo: ‘a clases!!’
     Si el mes seleccionado es Julio: ‘se vienen las vacaciones!!’
     Si el mes seleccionado es Diciembre: ‘Felices fiestas!!!’
-
 En caso de seleccionar un mes distinto a los mencionados, no hacer nada
 '''
-
-
 class App(customtkinter.CTk):
     
     def __init__(self):
@@ -43,7 +38,35 @@ class App(customtkinter.CTk):
         
     
     def btn_informar_on_click(self):
+        meses = self.combobox_mes.get()
+        
+        match meses:
+            case 'Enero':
+                mensaje = "Que comience el año"
+            case 'Febrero':
+                mensaje = "NO PUEDE HACER TANTO CALOR"
+            case 'Marzo':
+                mensaje = "A clases😀🔫"
+            case 'Abril':
+                mensaje = "Muchos feriados"
+            case 'Mayo':
+                mensaje = "Anda preparando ese locro"
+            case 'Junio':
+                mensaje = "Empieza el frio 🥶"
+            case 'Julio':
+                mensaje = "Vacaciones de invierno 🏂⛷"
+            case 'Agosto':
+                mensaje = "Segunda mitad de cursada"
+            case 'Septiembre':
+                mensaje = "Primavera"
+            case 'Octubre':
+                mensaje = "BU 👻☠"
+            case 'Noviembre':
+                mensaje = "FINALES"
+            case 'Diciembre':
+                mensaje = "Vacaciones"
         pass
+        alert("Match-01", mensaje)
     
     
 if __name__ == "__main__":

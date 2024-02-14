@@ -4,7 +4,6 @@ from tkinter.messagebox import askyesno as question
 from tkinter.simpledialog import askstring as prompt
 import customtkinter
 
-
 '''
 nombre:
 apellido:
@@ -19,8 +18,6 @@ caso contrario mostrar “No se viaja”.
     Si es otoño: se viaja a todos los lugares
     Si es primavera: se viaja a todos los lugares menos Bariloche
 '''
-
-
 class App(customtkinter.CTk):
     
     def __init__(self):
@@ -47,8 +44,32 @@ class App(customtkinter.CTk):
         
     
     def btn_informar_on_click(self):
+        estacion = self.combobox_destino.get()
+        lugar = self.combobox_destino.get()
+        
+        match estacion:
+            case 'Invierno':
+                if lugar == 'Bariloche':
+                    mensaje = 'Se viaja'
+                else: 
+                    mensaje = 'No se viaja'
+            case 'Verano':
+                if lugar == 'Mar del plata' or lugar == 'Cataratas':
+                    mensaje = 'Se viaja'
+                else:
+                    mensaje = 'No se viaja'
+            case 'Otoño':
+                if lugar == 'Mar del plata' or lugar == 'Cataratas' or lugar == 'Córdoba' or lugar == 'Bariloche':
+                    mensaje = 'Se viaja'
+                else:
+                    mensaje = 'No se viaja'
+            case 'Primavera':
+                if lugar == 'Mar del plata' or lugar == 'Cataratas' or lugar == 'Córdoba':
+                    mensaje = 'Se viaja'
+                else:
+                    mensaje = 'No se viaja'
         pass
-            
+        alert("Match-10", mensaje)
     
 if __name__ == "__main__":
     app = App()

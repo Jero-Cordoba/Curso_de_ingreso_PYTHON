@@ -4,10 +4,9 @@ from tkinter.messagebox import askyesno as question
 from tkinter.simpledialog import askstring as prompt
 import customtkinter
 
-
 '''
-nombre:
-apellido:
+nombre: Jerónimo
+apellido: Córdoba
 ---
 Ejercicio: Match_09
 ---
@@ -27,10 +26,7 @@ en función de la estación del año y del destino elegido:
         Cataratas tiene un aumento del 10%
         Mar del plata tiene un aumento del 10%
         Córdoba tiene precio sin descuento
-
 '''
-
-
 class App(customtkinter.CTk):
     
     def __init__(self):
@@ -57,9 +53,49 @@ class App(customtkinter.CTk):
         
     
     def btn_informar_on_click(self):
+        estacion = self.combobox_estaciones.get()
+        destinos = self.combobox_destino.get()
+        precio = 15000
+        
+        match estacion:
+            case 'Invierno':
+                if destinos == 'Bariloche':
+                    precio = precio * 1.2
+                elif destinos == 'Cataratas':
+                    precio = precio * 0.9
+                elif destinos == 'Mar del plata':
+                    precio = precio * 0.8
+                elif destinos == 'Cordoba':
+                    precio = precio * 0.9
+            case 'Verano':
+                if destinos == 'Bariloche':
+                    precio = precio * 0.8
+                elif destinos == 'Cataratas':
+                    precio = precio * 1.1
+                elif destinos == 'Mar del plata':
+                    precio = precio * 1.2
+                elif destinos == 'Cordoba':
+                    precio = precio * 1.1
+            case 'Otoño':
+                if destinos == 'Bariloche':
+                    precio = precio * 1.1
+                elif destinos == 'Cataratas':
+                    precio = precio * 1.1
+                elif destinos == 'Mar del plata':
+                    precio = precio *1.1
+                elif destinos == 'Cordoba':
+                    precio = precio * 1
+            case 'Primavera':
+                if destinos == 'Bariloche':
+                    precio = precio * 1.1
+                elif destinos == 'Cataratas':
+                    precio = precio * 1.1
+                elif destinos == 'Mar del plata':
+                    precio = precio *1.1
+                elif destinos == 'Cordoba':
+                    precio = precio * 1
         pass
-            
-    
+        alert("Match-09", f"El precio es: {precio}")
 if __name__ == "__main__":
     app = App()
     app.geometry("300x300")
