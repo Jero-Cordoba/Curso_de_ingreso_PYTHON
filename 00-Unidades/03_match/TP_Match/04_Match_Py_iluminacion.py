@@ -1,22 +1,22 @@
-import tkinter
+import tkinter, math
 from tkinter.messagebox import showinfo as alert
 from tkinter.messagebox import askyesno as question
 from tkinter.simpledialog import askstring as prompt
 import customtkinter
 
 '''
-nombre:
-apellido:
+nombre: Jerónimo
+apellido: Córdoba
 ---
 TP: Iluminación
 ---
 Enunciado:
 Todas las lámparas están  al mismo precio de $800 pesos final.
-		A.	Si compra 6 o más  lamparitas bajo consumo tiene un descuento del 50%. 
-		B.	Si compra 5  lamparitas bajo consumo marca "ArgentinaLuz" se hace un descuento del 40 % y si es de otra marca el descuento es del 30%.
-		C.	Si compra 4  lamparitas bajo consumo marca "ArgentinaLuz" o “FelipeLamparas” se hace un descuento del 25 % y si es de otra marca el descuento es del 20%.
-		D.	Si compra 3  lamparitas bajo consumo marca "ArgentinaLuz"  el descuento es del 15%, si es  “FelipeLamparas” se hace un descuento del 10 % y si es de otra marca un 5%.
-		E.	Si el importe final con descuento suma más de $4000  se obtien un descuento adicional de 5%.
+	A.	Si compra 6 o más  lamparitas bajo consumo tiene un descuento del 50%. 
+	B.	Si compra 5  lamparitas bajo consumo marca "ArgentinaLuz" se hace un descuento del 40 % y si es de otra marca el descuento es del 30%.
+	C.	Si compra 4  lamparitas bajo consumo marca "ArgentinaLuz" o “FelipeLamparas” se hace un descuento del 25 % y si es de otra marca el descuento es del 20%.
+	D.	Si compra 3  lamparitas bajo consumo marca "ArgentinaLuz"  el descuento es del 15%, si es  “FelipeLamparas” se hace un descuento del 10 % y si es de otra marca un 5%.
+	E.	Si el importe final con descuento suma más de $4000  se obtien un descuento adicional de 5%.
 '''
 
 class App(customtkinter.CTk):
@@ -41,11 +41,49 @@ class App(customtkinter.CTk):
         self.btn_calcular = customtkinter.CTkButton(master=self, text="Calcular", command=self.btn_calcular_on_click)
         self.btn_calcular.grid(row=2, pady=20, columnspan=2, sticky="nsew")
 
-
     def btn_calcular_on_click(self):
-        pass
-        
-    
+        marca = self.combobox_marca.get()
+        cantidad = self.combobox_cantidad.get()
+        lamparas = 800
+        match marca:
+            case "ArgentinaLuz":
+                match cantidad:
+                    case "1" | "2" | "3":
+                        descuento = 0.15
+                    case "1" | "2" | "3" | "4":
+                        descuento = 0.25
+                    case "1" | "2" | "3" | "4" | "5":
+                        descuento = 0.4
+                    case "1" | "2" | "3" | "4" | "5" | "6" | _:
+                        descuento = 0.5
+            case "FelipeLamparas":
+                match cantidad:
+                    case "1" | "2" | "3":
+                        descuento = 0.1
+                    case "1" | "2" | "3" | "4":
+                        descuento = 0.2
+                    case "1" | "2" | "3" | "4" | "5" | "6" | _:
+                        descuento = 0.3
+            case "JeLuz":
+                match cantidad:
+                    case "1" | "2" | "3":
+                        descuento = 0.05
+                    case "1" | "2" | "3" | "4":
+                        descuento = 0.1
+                    case "1" | "2" | "3" | "4" | "5" | "6" | _:
+                        descuento = 0.2
+            case "HazIluminacion":
+                match cantidad:
+                    case "1" | "2" | "3":
+                        descuento = 0.05
+                    case "1" | "2" | "3" | "4":
+                        descuento = 0.1
+                    case "1" | "2" | "3" | "4" | "5" | "6" | _:
+                        descuento = 0.2
+        imporFinal = lamparas - (lamparas * (descuento / 100))
+        if imporFinal > 4000:
+            imporFinal = imporFinal - (imporFinal * (5 / 100))
+        alert("Ejercicio 04", f"El importe final con descuento es de: " + str(imporFinal))
 if __name__ == "__main__":
     app = App()
     app.geometry("300x300")

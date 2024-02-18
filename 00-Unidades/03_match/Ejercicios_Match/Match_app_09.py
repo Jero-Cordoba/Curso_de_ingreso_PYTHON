@@ -59,43 +59,32 @@ class App(customtkinter.CTk):
         
         match estacion:
             case 'Invierno':
-                if destinos == 'Bariloche':
-                    precio = precio * 1.2
-                elif destinos == 'Cataratas':
-                    precio = precio * 0.9
-                elif destinos == 'Mar del plata':
-                    precio = precio * 0.8
-                elif destinos == 'Cordoba':
-                    precio = precio * 0.9
+                match destinos:
+                    case 'Bariloche':
+                        precioFinal = precio * 1.2
+                    case 'Cataratas' | 'Cordoba':
+                        precioFinal = precio * 1.1
+                    case 'Mar del plata':
+                        precioFinal = precio * 1.2
             case 'Verano':
+                match destinos:
+                    case 'Bariloche':
+                        precioFinal = precio * 1.2
+                    case 'Cataratas' | 'Cordoba':
+                        precioFinal = precio * 1.1
+                    case 'Mar del plata':
+                        precioFinal =precio * 1.2
+            case 'Otoño' | 'Primavera':
                 if destinos == 'Bariloche':
-                    precio = precio * 0.8
+                    precioFinal = precio * 1.1
                 elif destinos == 'Cataratas':
-                    precio = precio * 1.1
+                    precioFinal = precio * 1.1
                 elif destinos == 'Mar del plata':
-                    precio = precio * 1.2
+                    precioFinal = precio *1.1
                 elif destinos == 'Cordoba':
-                    precio = precio * 1.1
-            case 'Otoño':
-                if destinos == 'Bariloche':
-                    precio = precio * 1.1
-                elif destinos == 'Cataratas':
-                    precio = precio * 1.1
-                elif destinos == 'Mar del plata':
-                    precio = precio *1.1
-                elif destinos == 'Cordoba':
-                    precio = precio * 1
-            case 'Primavera':
-                if destinos == 'Bariloche':
-                    precio = precio * 1.1
-                elif destinos == 'Cataratas':
-                    precio = precio * 1.1
-                elif destinos == 'Mar del plata':
-                    precio = precio *1.1
-                elif destinos == 'Cordoba':
-                    precio = precio * 1
+                    precioFinal = precio * 1
         pass
-        alert("Match-09", f"El precio es: {precio}")
+        alert("Match-09", f"El precio es: {precioFinal}")
 if __name__ == "__main__":
     app = App()
     app.geometry("300x300")

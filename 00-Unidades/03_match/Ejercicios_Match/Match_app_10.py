@@ -49,25 +49,29 @@ class App(customtkinter.CTk):
         
         match estacion:
             case 'Invierno':
-                if lugar == 'Bariloche':
-                    mensaje = 'Se viaja'
-                else: 
-                    mensaje = 'No se viaja'
+                match lugar:
+                    case 'Bariloche':
+                        mensaje = 'Se viaja'
+                    case _:
+                        mensaje = 'No se viaja'
             case 'Verano':
-                if lugar == 'Mar del plata' or lugar == 'Cataratas':
-                    mensaje = 'Se viaja'
-                else:
-                    mensaje = 'No se viaja'
+                match lugar:
+                    case 'Mar del plata' | 'Cataratas':
+                        mensaje = 'Se viaja'
+                    case _:
+                        mensaje = 'No se viaja'
             case 'Otoño':
-                if lugar == 'Mar del plata' or lugar == 'Cataratas' or lugar == 'Córdoba' or lugar == 'Bariloche':
-                    mensaje = 'Se viaja'
-                else:
-                    mensaje = 'No se viaja'
+                match lugar:
+                    case 'Mar del plata' | 'Cataratas' | 'Córdoba' | 'Bariloche':
+                        mensaje = 'Se viaja'
+                    case _:
+                        mensaje = 'No se viaja'
             case 'Primavera':
-                if lugar == 'Mar del plata' or lugar == 'Cataratas' or lugar == 'Córdoba':
-                    mensaje = 'Se viaja'
-                else:
-                    mensaje = 'No se viaja'
+                match lugar:
+                    case 'Mar del plata' | 'Cataratas' | 'Córdoba':
+                        mensaje = 'Se viaja'
+                    case _:
+                        mensaje = 'No se viaja'
         pass
         alert("Match-10", mensaje)
     
