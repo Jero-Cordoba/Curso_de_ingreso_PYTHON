@@ -5,8 +5,8 @@ from tkinter.simpledialog import askstring as prompt
 import customtkinter
 
 '''
-nombre:
-apellido:
+nombre: Jerónimo
+apellido: Córdoba
 ---
 Ejercicio: while_07
 ---
@@ -15,9 +15,7 @@ Al presionar el botón ‘Comenzar ingreso’, solicitar mediante prompt todos l
 hasta que presione el botón Cancelar (en el prompt). 
 Calcular la suma acumulada y el promedio de los números ingresados. 
 Luego informar los resultados en las cajas de texto txt_suma_acumulada y txt_promedio
-
 '''
-
 class App(customtkinter.CTk):
     
     def __init__(self):
@@ -34,11 +32,26 @@ class App(customtkinter.CTk):
         self.btn_mostrar = customtkinter.CTkButton(master=self, text="Comenzar Ingreso", command=self.btn_comenzar_ingreso_on_click)
         self.btn_mostrar.grid(row=2, padx=20, pady=20, columnspan=2, sticky="nsew")
 
-
     def btn_comenzar_ingreso_on_click(self):
-        pass
+        contador = 0
+        acumulador = 0
+        while True:
+            numero_ingresado = int(prompt("While-07","Ingrese un numero"))
+            acumulador += numero_ingresado
+            
+            if numero_ingresado == 0:
+                break
+            
+            contador += 1
+            acumulador += numero_ingresado
+            
+        promedio = acumulador / contador
+        
+        self.txt_suma_acumulada.delete(0, "end")
+        self.txt_suma_acumulada.insert(0, acumulador)
+        self.txt_promedio.delete(0, "end")
+        self.txt_promedio.insert(0, promedio)
 
-    
 if __name__ == "__main__":
     app = App()
     app.geometry("300x300")

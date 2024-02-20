@@ -4,10 +4,9 @@ from tkinter.messagebox import askyesno as question
 from tkinter.simpledialog import askstring as prompt
 import customtkinter
 
-
 '''
-nombre:
-apellido:
+nombre: Jerónimo
+apellido: Córdoba
 ---
 Ejercicio: while_02bis
 ---
@@ -15,7 +14,6 @@ Enunciado:
 Al presionar el botón ‘Mostrar Iteración’, mostrar mediante alert la suma 
 de los numeros pares comprendidos entre el 1 y el 10.
 '''
-
 
 class App(customtkinter.CTk):
     
@@ -29,7 +27,13 @@ class App(customtkinter.CTk):
         
     
     def btn_mostrar_iteracion_on_click(self):
-        pass
+        contador = 0
+        suma = 0
+        while contador <= 10:
+            if contador % 2 == 0:
+                suma += contador
+            alert("While-02bis", suma)
+            contador += 1
     
     
 if __name__ == "__main__":

@@ -4,10 +4,9 @@ from tkinter.messagebox import askyesno as question
 from tkinter.simpledialog import askstring as prompt
 import customtkinter
 
-
 '''
-nombre:
-apellido:
+nombre: Jerónimo
+apellido: Córdoba
 ---
 Ejercicio: while_03
 ---
@@ -15,7 +14,6 @@ Enunciado:
 Al presionar el botón ‘Pedir clave’, solicitar al usuario que ingrese una contraseña mediante prompt. 
 Comprobar que la contraseña ingresada sea ‘utn750’. En caso de no coincidir, volver a solicitarla hasta que coincidan.
 '''
-
 
 class App(customtkinter.CTk):
     
@@ -29,7 +27,10 @@ class App(customtkinter.CTk):
         
     
     def btn_pedir_clave_on_click(self):
-        pass
+        clave = prompt("Clave", "Ingresar clave")
+        while clave != "utn750":
+            alert("Clave incorrecta")
+            clave = prompt("Clave", "Ingresar clave")
     
     
 if __name__ == "__main__":

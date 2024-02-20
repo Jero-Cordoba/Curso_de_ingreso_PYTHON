@@ -5,8 +5,8 @@ from tkinter.simpledialog import askstring as prompt
 import customtkinter
 
 '''
-nombre:
-apellido:
+nombre: Jerónimo
+apellido: Córdoba
 ---
 TP: While_validaciones_rising_btl
 ---
@@ -20,10 +20,7 @@ Los datos requeridos son los siguientes:
     Estado civil, ["Soltero/a", "Casado/a", "Divorciado/a", "Viudo/a"]
     Número de legajo, numérico de 4 cifras, sin ceros a la izquierda.
 '''
-
-
 class App(customtkinter.CTk):
-
     def __init__(self):
         super().__init__()
         
@@ -55,8 +52,36 @@ class App(customtkinter.CTk):
         self.btn_validar.grid(row=4, pady=20, columnspan=2, sticky="nsew")
 
     def btn_validar_on_click(self):
-        pass
-
+        apellido = self.txt_apellido.get()
+        edad = self.txt_edad.get()
+        estado = self.combobox_tipo.get()
+        legajo = self.txt_legajo.get()
+        
+        while not (18 <= int(edad) <= 90):
+            alert("Rising BTL", "Edad no valida")
+            break
+        else:
+            alert("Rising BTL", "Edad valida")
+        
+        while not (estado == "Soltero/a" or estado == "Casado/a" or estado == "Divorciado/a" or estado == "Viudo/a"):
+            alert("Rising BTL", "Estado civil no valido")
+            break
+        else:
+            alert("Rising BTL", "Estado civil valido")
+        
+        while not (len(legajo) == 4):
+            alert("Rising BTL", "Legajo no valido")
+            break
+        else:
+            alert("Rising BTL", "Legajo valido")
+        
+        while not (int(legajo) > 0):
+            alert("Rising BTL", "Legajo no valido")
+            break
+        else:
+            alert("Rising BTL", "Legajo valido")
+        
+        alert("While-TP-01", f"Los datos validados son:{'\n'} Apellido: {apellido} \n Edad: {edad} \n Estado civil: {estado} \n Legajo: {legajo} \n")
 
 if __name__ == "__main__":
     app = App()
