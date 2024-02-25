@@ -5,8 +5,8 @@ from tkinter.simpledialog import askstring as prompt
 import customtkinter
 
 '''
-nombre:
-apellido:
+nombre: Jerónimo
+apellido: Córdoba
 ---
 Ejercicio: for_06
 ---
@@ -27,9 +27,10 @@ class App(customtkinter.CTk):
 
 
     def btn_mostrar_on_click(self):
-        pass
-        
-    
+        for divisores in range(1, 100):
+            if 100 % divisores == 0:
+                alert("For-Ejercicio 6", f"Los divisores de {divisores} son: {divisores}")
+            
 if __name__ == "__main__":
     app = App()
     app.geometry("300x300")

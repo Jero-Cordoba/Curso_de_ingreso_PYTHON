@@ -5,8 +5,8 @@ from tkinter.simpledialog import askstring as prompt
 import customtkinter
 
 '''
-nombre:
-apellido:
+nombre: Jerónimo
+apellido: Córdoba
 ---
 TP: For_UTN_Factory
 ---
@@ -31,9 +31,7 @@ d. Tecnologia con mas postulantes (solo hay una).
 e. Porcentaje de postulantes de cada genero.
 
 Todos los datos se ingresan por prompt y los resultados se muestran por consola (print)
-
 '''
-
 class App(customtkinter.CTk):
 
     def __init__(self):
@@ -41,14 +39,25 @@ class App(customtkinter.CTk):
 
         self.title("UTN Fra")
 
-        self.btn_validar = customtkinter.CTkButton(
-            master=self, text="Validar", command=self.btn_validar_on_click)
+        self.btn_validar = customtkinter.CTkButton(master=self, text="Validar", command=self.btn_validar_on_click)
         self.btn_validar.grid(row=4, pady=20, columnspan=2, sticky="nsew")
 
     def btn_validar_on_click(self):
-        pass
-
-
+        bandera = True
+        
+        for i in range(10):
+            nombre = str(prompt("Ingreso de dato", "Ingrese su nombre:")).capitalize()
+            edad = int(prompt("Ingreso de dato", "Ingrese su edad:"))
+            genero = str(prompt("Ingreso de dato", "Ingrese su genero:"))
+            contador_NB = 0
+            tecnologia = str(prompt("Ingreso de dato", "Ingrese su tecnologia:"))
+            puesto = str(prompt("Ingreso de dato", "Ingrese su puesto:"))
+            
+            if genero == "Femenino" or genero == "Masculino" or genero == "NB":
+            elif genero == "NB":
+                contador_NB += 1
+                
+            
 if __name__ == "__main__":
     app = App()
     app.geometry("300x300")

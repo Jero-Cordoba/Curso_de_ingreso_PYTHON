@@ -5,8 +5,8 @@ from tkinter.simpledialog import askstring as prompt
 import customtkinter
 
 '''
-nombre:
-apellido:
+nombre: Jerónimo
+apellido: Córdoba
 ---
 Ejercicio: for_07
 ---
@@ -26,9 +26,10 @@ class App(customtkinter.CTk):
 
 
     def btn_mostrar_on_click(self):
-        pass
-        
-    
+        for i in range(1, 100):
+            if i == 2 or i == 3 or i == 5 or i == 7:
+                alert("For-Ejercicio 7", f"{i} es primo")
+                    
 if __name__ == "__main__":
     app = App()
     app.geometry("300x300")

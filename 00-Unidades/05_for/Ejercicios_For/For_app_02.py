@@ -5,8 +5,8 @@ from tkinter.simpledialog import askstring as prompt
 import customtkinter
 
 '''
-nombre:
-apellido:
+nombre: Jerónimo  
+apellido: Córdoba
 ---
 Ejercicio: for_02
 ---
@@ -15,7 +15,6 @@ Al presionar el botón Mostrar 5 veces un mensaje (utilizando el Dialog Alert) c
 '''
 
 class App(customtkinter.CTk):
-    
     def __init__(self):
         super().__init__()
 
@@ -24,10 +23,9 @@ class App(customtkinter.CTk):
         self.btn_mostrar = customtkinter.CTkButton(master=self, text="Mostrar", command=self.btn_mostrar_on_click)
         self.btn_mostrar.grid(row=2, pady=20, columnspan=2, sticky="nsew")
 
-
     def btn_mostrar_on_click(self):
-        pass
-       
+        for i in range(5):
+            alert(self, f"For-Ejercicio 2: {i-1}")
             
 
 if __name__ == "__main__":

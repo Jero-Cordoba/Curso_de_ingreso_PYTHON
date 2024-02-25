@@ -20,6 +20,10 @@ Luego calcular:
     D. Cantidad de números negativos ingresados
     E. Cantidad de ceros
     F. Diferencia entre la cantidad de los números positivos ingresados y los negativos
+    G. Minimo numero y que sea positivo
+    H. Maximo numero y que sea negativo
+    I. Promedio de los negativos y Promedio de los positivos
+    J. Cantidad de numeros ingresados
 Informar los resultados mediante alert()
 '''
 class App(customtkinter.CTk):
@@ -37,22 +41,32 @@ class App(customtkinter.CTk):
         minimo = 0
         while True:
             numero = int(prompt("While-10", "Ingresar un número"))
-            if bandera_primer_ingreso:
-                maximo = numero
-                minimo = numero
-                bandera_primer_ingreso = False
-            else:
-                if maximo < numero:
+            if numero != None:
+                if bandera_primer_ingreso:
                     maximo = numero
-                if minimo > numero:
                     minimo = numero
-            if numero == 0:
+                    bandera_primer_ingreso = False
+                else:
+                    if maximo < numero:
+                        maximo = numero
+                    if minimo > numero:
+                        minimo = numero
+            else:
                 break
-        
-            bandera_primer_ingreso = False
-        
-        alert("While-10", f"El maximo es: {maximo}\nEl minimo es: {minimo}")
+            
+            diferencia = maximo - minimo
+            promedio_negativo = 0
+            promedio_positivo = 0
+            
+            if maximo < 0:
+                promedio_negativo = maximo
+            if minimo > 0:
+                promedio_positivo = minimo
+            
+        mensaje = f"Maximo: {maximo}\nMinimo: {minimo}\nDiferencia: {diferencia}\nPromedio negativo: 
+        {promedio_negativo}\nPromedio positivo: {promedio_positivo}"
     
+        alert("While-10", mensaje)
 if __name__ == "__main__":
     app = App()
     app.geometry("300x300")
