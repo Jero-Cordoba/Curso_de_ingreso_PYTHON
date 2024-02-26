@@ -70,16 +70,26 @@ class App(customtkinter.CTk):
         #Se q ya envie el codigo pero me di cuenta de un error importante, si ya tengo el "re_votar" en true, no es necesario q lo iguale
         while re_votar:
             nombre = input("Ingrese su nombre:").capitalize
+            while nombre == None or nombre == "":
+                print("Por favor, ingrese un nombre")
+                
             edad = int(input("Ingresa su edad:"))
-            genero_votante = input("Ingresa el genero del votante:").capitalize
-            participante_votado = input("Ingrese el nombre del votantes: (ejemplo: Gianni)").capitalize
+            if edad <= 13:
+                print("Puede votar")
+                continue
             
-            if genero_votante == "Masculino":
-                genero_masculino += 1
-            elif genero_votante == "Femenino":
-                genero_femenino += 1
-            elif genero_votante == "Otro":
-                genero_otro += 1
+            genero_votante = input("Ingresa el genero del votante:").capitalize
+            match genero_votante:
+                case "Masculino":
+                    genero_masculino += 1
+                case "Femenino":
+                    genero_femenino += 1
+                case "Otro":
+                    genero_otro += 1
+                case _:
+                    print("Genero no valido")
+                
+            participante_votado = input("Ingrese el nombre del votantes: (ejemplo: Gianni)").capitalize
             
             if participante_votado not in ["Giovanni", "Gianni", "Esteban"]:
                 print("Participante no válido. Intente Nuevamente")
@@ -101,9 +111,6 @@ class App(customtkinter.CTk):
                 edad_femenino += 1
                 genero_femenino += 1
                 
-            if edad <= 13:
-                print("No tenes edad para votar")
-                continue
             re_votar = question("¿Quieres votar de nuevo?")
             
         if edad > edad_masviejo:
