@@ -42,21 +42,20 @@ class App(customtkinter.CTk):
         self.btn_validar = customtkinter.CTkButton(master=self, text="Validar", command=self.btn_validar_on_click)
         self.btn_validar.grid(row=4, pady=20, columnspan=2, sticky="nsew")
 
-    def btn_validar_on_click(self):
-        bandera = True
-        
+    def btn_validar_on_click(self):    
+        cant_nb_ssr_edad_25_40 = 0
+        nombre_jr_menor_edad = None
+        edades_por_genero = {'F': [], 'M': [], 'NB': []}
+        tecnologias = {'PYTHON': 0, 'JS': 0, 'ASP.NET': 0}
+        cant_genero = {'F': 0, 'M': 0, 'NB': 0}
         for i in range(10):
-            nombre = str(prompt("Ingreso de dato", "Ingrese su nombre:")).capitalize()
-            edad = int(prompt("Ingreso de dato", "Ingrese su edad:"))
-            genero = str(prompt("Ingreso de dato", "Ingrese su genero:"))
-            contador_NB = 0
-            tecnologia = str(prompt("Ingreso de dato", "Ingrese su tecnologia:"))
-            puesto = str(prompt("Ingreso de dato", "Ingrese su puesto:"))
+            nombre = prompt("Ingrese su nombre")
+            edad = int(prompt("Ingrese su edad"))
+            genero = prompt("Ingrese su genero")
+            tecnologia = prompt("Ingrese su tecnologia")
+            puesto = prompt("Ingrese su puesto")
             
-            if genero == "Femenino" or genero == "Masculino" or genero == "NB":
-            elif genero == "NB":
-                contador_NB += 1
-                
+        
             
 if __name__ == "__main__":
     app = App()

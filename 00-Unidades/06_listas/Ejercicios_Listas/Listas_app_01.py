@@ -5,8 +5,8 @@ from tkinter.simpledialog import askstring as prompt
 import customtkinter
 
 '''
-nombre:
-apellido:
+nombre: Jerónimo
+apellido: Córdoba
 ---
 Ejercicio: listas_01
 ---
@@ -30,9 +30,8 @@ class App(customtkinter.CTk):
 
 
     def btn_mostrar_on_click(self):
-        pass
-        
-        
+        for i in range(len(self.lista_datos)):
+            alert("Listas-Ejercicio,01", f"Numeros: {self.lista_datos[i]}")
     
 if __name__ == "__main__":
     app = App()

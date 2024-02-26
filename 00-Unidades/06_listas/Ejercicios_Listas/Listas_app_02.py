@@ -5,13 +5,14 @@ from tkinter.simpledialog import askstring as prompt
 import customtkinter
 
 '''
-nombre:
-apellido:
+nombre: Jerónimo
+apellido: Córdoba
 ---
 Ejercicio: listas_02
 ---
 Enunciado:
-Al presionar el botón 'Calcular' se deberá sumar todos los numeros de la lista, mostrar el resultado de la sumatoria y el promedio por Dialog Alert . 
+Al presionar el botón 'Calcular' se deberá sumar todos los numeros de la lista, 
+mostrar el resultado de la sumatoria y el promedio por Dialog Alert . 
 '''
 
 class App(customtkinter.CTk):
@@ -27,7 +28,11 @@ class App(customtkinter.CTk):
         self.lista_datos = [2,3,5,7,11,13]
         
     def btn_calcular_on_click(self):
-        pass
+        listas = self.lista_datos
+        suma = 0
+        for i in listas:
+            suma += i
+        alert("Listas-Ejercicio,02", f"Suma: {suma}")
     
 if __name__ == "__main__":
     app = App()

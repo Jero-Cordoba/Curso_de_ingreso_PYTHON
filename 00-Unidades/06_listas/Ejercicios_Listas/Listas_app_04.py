@@ -1,4 +1,3 @@
-
 import tkinter
 from tkinter.messagebox import showinfo as alert
 from tkinter.messagebox import askyesno as question
@@ -6,8 +5,8 @@ from tkinter.simpledialog import askstring as prompt
 import customtkinter
 
 '''
-nombre:
-apellido:
+nombre: Jerónimo
+apellido: Córdoba
 ---
 Ejercicio: listas_04
 ---
@@ -48,11 +47,15 @@ class App(customtkinter.CTk):
 
 
     def btn_ingresar_on_click(self):
-        pass
-
+        edad = int(prompt("Edad", "Ingresa tu edad"))
+        genero = prompt("Genero", "Ingresa tu genero")
+        self.lista_edades.append(edad)
+        self.lista_generos.append(genero)
+        
     def btn_informar_on_click(self):
-        pass
-    
+        edad_hombre = 0
+        
+        
     
 if __name__ == "__main__":
     app = App()
