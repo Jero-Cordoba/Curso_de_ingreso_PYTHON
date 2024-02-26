@@ -10,35 +10,34 @@ apellido: Córdoba
 ---
 Ejercicio: Simulacro de parcial 
 ---
-Simulacro Turno Mañana
-
+Simulacro Turno Mañana:
 Es la gala de eliminación del Gran Utniano y la producción nos pide un programa para contar los votos de los televidentes y saber cuál será el participante que deberá abandonar la casa más famosa del mundo.
 
 Los participantes en la placa son: Giovanni, Gianni y Esteban. Matias no fue nominado y Renato no está en la placa esta semana por haber ganado la inmunidad.
 
 Cada televidente que vota deberá ingresar:
 
-Nombre del votante
+-Nombre del votante
 
-Edad del votante (debe ser mayor a 13)
+-Edad del votante (debe ser mayor a 13)
 
-Género del votante (Masculino, Femenino, Otro)
+-Género del votante (Masculino, Femenino, Otro)
 
-El nombre del participante a quien le dará el voto negativo (Debe estar en placa)
+-El nombre del participante a quien le dará el voto negativo (Debe estar en placa)
 
-No se sabe cuántos votos entrarán durante la gala.
+-No se sabe cuántos votos entrarán durante la gala.
 
-Se debe informar al usuario:
+-Se debe informar al usuario:
 
-El promedio de edad de las votantes de género Femenino 
+-El promedio de edad de las votantes de género Femenino 
 
-Del votante más viejo, su nombre.
+-Del votante más viejo, su nombre.
 
-Nombre del votante más joven qué votó a Gianni.
+-Nombre del votante más joven qué votó a Gianni.
 
-Nombre de cada participante y porcentaje de los votos qué recibió.
+-Nombre de cada participante y porcentaje de los votos qué recibió.
 
-El nombre del participante que debe dejar la casa (El que tiene más votos)
+-El nombre del participante que debe dejar la casa (El que tiene más votos)
 '''
 
 class App(customtkinter.CTk):
@@ -58,19 +57,29 @@ class App(customtkinter.CTk):
         votantes_giovani = 0
         votantes_giani = 0
         votantes_esteban = 0 
+        genero_masculino = 0
+        genero_femenino = 0
+        genero_otro = 0
         total_votos = 0     
         suma_edades = 0
         edad_masviejo = 0 
         edad_femenino = 0
-        nombre_gianni = 0
+        nombre_gianni = ""
         re_votar = True
         edad_gianni = float('inf')
         
         while re_votar ==True:
-            nombre = input("Ingresa el nombre del votante:").capitalize
+            nombre = input("Ingrese su nombre:").capitalize
             edad = int(input("Ingresa su edad:"))
             genero_votante = input("Ingresa el genero del votante:").capitalize
             participante_votado = input("Ingrese el nombre del votantes: (ejemplo: Gianni)").capitalize
+            
+            if genero_votante == "Masculino":
+                genero_masculino += 1
+            elif genero_votante == "Femenino":
+                genero_femenino += 1
+            elif genero_votante == "Otro":
+                genero_otro += 1
             
             if participante_votado not in ["Giovanni", "Gianni", "Esteban"]:
                 print("Participante no válido. Intente Nuevamente")
@@ -90,9 +99,11 @@ class App(customtkinter.CTk):
             if genero_votante == "Femenino":
                 suma_edades += edad
                 edad_femenino += 1
+                genero_femenino += 1
                 
             if edad <= 13:
                 print("No tenes edad para votar")
+                continue
             re_votar = question("¿Quieres votar de nuevo?")
             
         if edad > edad_masviejo:
