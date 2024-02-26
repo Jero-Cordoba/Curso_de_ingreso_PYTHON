@@ -90,38 +90,38 @@ class App(customtkinter.CTk):
             if genero_votante == "Femenino":
                 suma_edades += edad
                 edad_femenino += 1
-            
+                
             if edad <= 13:
                 print("No tenes edad para votar")
-            
-            if edad > edad_masviejo:
-                nombre_masviejo = nombre
-                edad_masviejo = edad
-            total_votos += 1
-            
-            porcentaje_giovanni = votantes_giovani / total_votos * 100
-            porcentaje_gianni = votantes_giani / total_votos * 100
-            porcentaje_esteban = votantes_esteban / total_votos * 100
-            
-            if votantes_giovani > votantes_giani and votantes_giovani > votantes_esteban:
-                mensaje = ("El/La participante que debe dejar la casa es: Giovanni")
-            elif votantes_giani > votantes_giovani and votantes_giani > votantes_esteban:
-                mensaje = ("El/La participante que debe dejar la casa es: Gianni")
-            elif votantes_esteban > votantes_giani and votantes_esteban > votantes_giovani:
-                mensaje = ("El/La participante que de debe dejar la casa es: Esteban")
-            else:
-                mensaje = ("Nadie se va de la casa más famosa del mundo")
-                
-            alert (mensaje)
-        
-            print("El promedio de edad de las votantes femeninas son del:" + suma_edades / edad_femenino)
-            print("El votante más viejo, de la casa más famosa del mundo es:" + nombre_masviejo)
-            print("EL votante más joven que voto por Gianni es:" + nombre_gianni + "\n Y tiene tiene: " + edad_gianni)
-            print("Giovanni tiene un porcentaje de votos del: " + porcentaje_giovanni)
-            print("Gianni tiene un porcentaje de votos del:" + porcentaje_gianni)
-            print("Esteban tiene un porcentaje de votos del:" + porcentaje_esteban)
-            
             re_votar = question("¿Quieres votar de nuevo?")
+            
+        if edad > edad_masviejo:
+            nombre_masviejo = nombre
+            edad_masviejo = edad
+        total_votos += 1
+        
+        porcentaje_giovanni = votantes_giovani / total_votos * 100
+        porcentaje_gianni = votantes_giani / total_votos * 100
+        porcentaje_esteban = votantes_esteban / total_votos * 100
+        
+        if votantes_giovani > votantes_giani and votantes_giovani > votantes_esteban:
+            mensaje = ("El/La participante que debe dejar la casa es: Giovanni")
+        elif votantes_giani > votantes_giovani and votantes_giani > votantes_esteban:
+            mensaje = ("El/La participante que debe dejar la casa es: Gianni")
+        elif votantes_esteban > votantes_giani and votantes_esteban > votantes_giovani:
+            mensaje = ("El/La participante que de debe dejar la casa es: Esteban")
+        else:
+            mensaje = ("Nadie se va de la casa más famosa del mundo")
+            
+        alert (mensaje)
+    
+        print("El promedio de edad de las votantes femeninas son del:" + suma_edades / edad_femenino)
+        print("El votante más viejo, de la casa más famosa del mundo es:" + nombre_masviejo)
+        print("EL votante más joven que voto por Gianni es:" + nombre_gianni + "\n Y tiene tiene: " + edad_gianni)
+        print("Giovanni tiene un porcentaje de votos del: " + porcentaje_giovanni)
+        print("Gianni tiene un porcentaje de votos del:" + porcentaje_gianni)
+        print("Esteban tiene un porcentaje de votos del:" + porcentaje_esteban)
+            
             
 if __name__ == "__main__":
     app = App()
