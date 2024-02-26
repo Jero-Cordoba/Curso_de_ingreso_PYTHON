@@ -65,7 +65,7 @@ class App(customtkinter.CTk):
         re_votar = True
         
         while re_votar:
-            nombre = prompt("Ingrese su nombre:").capitalize
+            nombre = prompt("Ingrese su nombre:").capitalize()
             while True:
                 try:
                     edad = int(prompt("Ingresa su edad:"))

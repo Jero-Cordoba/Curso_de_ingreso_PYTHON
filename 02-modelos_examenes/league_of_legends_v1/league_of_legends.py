@@ -1,18 +1,3 @@
-# Copyright (C) 2023 <UTN FRA>
-# 
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-# 
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 import tkinter as tk
 from tkinter.messagebox import showinfo as alert
 from tkinter.messagebox import askyesno as question
@@ -20,13 +5,12 @@ from tkinter.simpledialog import askstring as prompt
 import customtkinter
 import warnings
 
-
 '''
 ################# INTRODUCCION #################
 #? Un jugador de League of Legends tiene un fin de semana libre y 
 #? va a jugar partidas hasta que se canse.
 '''
-NOMBRE = '' # Completa tu nombre completo solo en esa variable
+NOMBRE = 'Jerónimo Córdoba' # Completa tu nombre completo solo en esa variable
 '''
 #?################ ENUNCIADO #################
 Para ello deberas programar el boton "Cargar Campeones" para poder cargar 10 personajes del juego.
@@ -112,24 +96,80 @@ class App(customtkinter.CTk):
             "Clasificatoria", "ARAM", "Clasificatoria", "Normal", "Clasificatoria",
         ]
 
-
     def btn_cargar_campeones_on_click(self):
-        pass
-        
+        self.lista_modo_de_juego = []
+        self.lista_nombre_campeones = []
+        self.lista_asesinatos_a_favor = []
+        self.lista_muertes_en_contra = []
+        self.lista_asistencias_a_favor = []
+
+        for i in range(10):
+            modo_juego = prompt("Ingrese el modo de juego (Normal, Clasificatoria, ARAM): ").capitalize()
+            while modo_juego not in ["Normal", "Clasificatoria", "ARAM"]:
+                alert("Modo de juego no válido. Intente nuevamente.")
+                modo_juego = prompt("Ingrese el modo de juego (Normal, Clasificatoria, ARAM): ").capitalize()
+
+            nombre_campeon = prompt("Ingrese el nombre del campeón: ")
+            asesinatos = int(prompt("Ingrese la cantidad de asesinatos a favor (no puede ser negativo): "))
+            while asesinatos < 0:
+                alert("Cantidad de asesinatos no válida. Intente nuevamente.")
+                asesinatos = int(prompt("Ingrese la cantidad de asesinatos a favor (no puede ser negativo): "))
+
+            muertes = int(prompt("Ingrese la cantidad de muertes en contra (no puede ser negativo): "))
+            while muertes < 0:
+                alert("Cantidad de muertes no válida. Intente nuevamente.")
+                muertes = int(prompt("Ingrese la cantidad de muertes en contra (no puede ser negativo): "))
+
+            asistencias = int(prompt("Ingrese la cantidad de asistencias a favor (no puede ser negativo, hasta 40): "))
+            while asistencias < 0 or asistencias > 40:
+                alert("Cantidad de asistencias no válida. Intente nuevamente.")
+                asistencias = int(prompt("Ingrese la cantidad de asistencias a favor (no puede ser negativo, hasta 40): "))    
+            
+            self.lista_modo_de_juego.append(modo_juego)
+            self.lista_nombre_campeones.append(nombre_campeon)
+            self.lista_asesinatos_a_favor.append(asesinatos)
+            self.lista_muertes_en_contra.append(muertes)
+            self.lista_asistencias_a_favor.append(asistencias)
+            alert("Datos cargados exitosamente.")
 
     def btn_mostrar_informe_1_on_click(self):
-        pass
-
+        print("Informe 1:")
+        for i, campeon in enumerate(self.lista_nombre_campeones, 1):
+            print(f"{i}. {campeon}")
+            dni = int(NOMBRE.split()[-1][-1])
+            informe_number = dni if dni <= 4 else 9 - dni
+            print(f"Realizar informe {informe_number}")
     
     def btn_mostrar_informe_2_on_click(self):
-        pass
-
+        print("Informe 2:")
     
+        print(f"0) Modo de juego más jugado: {self.modo_mas_jugado()}")
+        
+        print(f"1) Modo de juego menos jugado: {self.modo_menos_jugado()}")
+        
+        print(f"2) Personaje con el cual murió más: {self.personaje_con_mas_muertes()}")
+        
+        print(f"3) Personaje con el cual asistió más: {self.personaje_con_mas_asistencias()}")
+        
+        print(f"4) Promedio de asesinatos a favor en modo Clasificatoria: {self.promedio_asesinatos_modo('Clasificatoria')}")
+        
+        print(f"5) Promedio de muertes en contra en modo ARAM: {self.promedio_muertes_modo('ARAM')}")
+        
+        print(f"6) Promedio de asistencias en modo Normal: {self.promedio_asistencias_modo('Normal')}")
+        
+        partida_mas_muertes_info = self.partida_mas_muertes()
+        print(f"7) De la partida con más muertes en contra: {partida_mas_muertes_info}")
+        
+        partida_mas_asistencias_info = self.partida_mas_asistencias()
+        print(f"8) De la partida con más asistencias a favor: {partida_mas_asistencias_info}")
+        
+        partida_mas_asesinatos_info = self.partida_mas_asesinatos()
+        print(f"9) De la partida con más asesinatos a favor: {partida_mas_asesinatos_info}")
+
     def btn_mostrar_todos_informes_on_click(self):
         self.btn_mostrar_informe_1_on_click()
         self.btn_mostrar_informe_2_on_click()
-
-    
+        
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
     app = App()

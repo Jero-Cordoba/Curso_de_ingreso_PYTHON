@@ -1,18 +1,3 @@
-# Copyright (C) 2024 <UTN FRA>
-# 
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-# 
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 import tkinter as tk
 from tkinter.messagebox import showinfo as alert
 from tkinter.messagebox import askyesno as question
@@ -27,7 +12,7 @@ import customtkinter
 #? para ello habra que construir un programita que ayude con esa cuestion y 
 #? recobrar la paz.
 '''
-NOMBRE = '' # Completa tu nombre completo solo en esa variable
+NOMBRE = 'Jerónimo Córdoba' # Completa tu nombre completo solo en esa variable
 '''
 #?################ ENUNCIADO #################
 Es por eso que deberas programar el boton "Cargar Transformer" para poder cargar 10 robots.
@@ -113,25 +98,115 @@ class App(customtkinter.CTk):
             200, 180, 105, 90, 350, 420
         ]
 
-
     def btn_cargar_transformer_on_click(self):
-        pass
+        for _ in range(10):
+            nombre = prompt("Ingrese el nombre del Transformer:")
+            bando = prompt("Ingrese el bando del Transformer (Autobot, Maximal, Predacon, Descepticon, Terrorcon):")
+            poder = int(prompt("Ingrese la cantidad de poder del Transformer (entre 50 y 200):"))
+            altura = int(prompt("Ingrese la altura del Transformer en metros (entre 5 y 50):"))
+            peso = int(prompt("Ingrese el peso del Transformer en toneladas (entre 20 y 500):"))
+
+            while poder < 50 or poder > 200:
+                alert("El poder debe estar entre 50 y 200.")
+                poder = int(prompt("Ingrese la cantidad de poder del Transformer (entre 50 y 200):"))
+
+            while altura < 5 or altura > 50:
+                alert("La altura debe estar entre 5 y 50 metros.")
+                altura = int(prompt("Ingrese la altura del Transformer en metros (entre 5 y 50):"))
+
+            while peso < 20 or peso > 500:
+                alert("El peso debe estar entre 20 y 500 toneladas.")
+                peso = int(prompt("Ingrese el peso del Transformer en toneladas (entre 20 y 500):"))
+
+        self.lista_nombre_transformers.append(nombre)
+        self.lista_bando_transformers.append(bando)
+        self.lista_poder_transformers.append(poder)
+        self.lista_altura_transformers.append(altura)
+        self.lista_peso_transformers.append(peso)
+        alert("Los datos se cargaron correctamente.")
         
-
     def btn_mostrar_informe_1_on_click(self):
-        pass
+        print("Primer Informe:")
+        for i in range(len(self.lista_nombre_transformers)):
+            nombre = self.lista_nombre_transformers[i]
+            bando = self.lista_bando_transformers[i]
+            poder = self.lista_poder_transformers[i]
+            altura = self.lista_altura_transformers[i]
+            peso = self.lista_peso_transformers[i]
 
+            print(f"Transformador {i + 1}: {nombre} - Bando: {bando} - Poder: {poder} - Altura: {altura}m - Peso: {peso} ton")
     
     def btn_mostrar_informe_2_on_click(self):
-        pass
+        print("Segundo Informe:")
+    
+        count_autobots = 0
+        count_maximals = 0
+        total_poder = 0
+        total_altura_azules = 0
+        count_azules = 0
 
+        max_altura_transformer = None
+        min_altura_transformer = None
+
+        max_poder_transformer = None
+        min_poder_transformer = None
+
+        for i in range(len(self.lista_nombre_transformers)):
+            nombre = self.lista_nombre_transformers[i]
+            bando = self.lista_bando_transformers[i]
+            poder = self.lista_poder_transformers[i]
+            altura = self.lista_altura_transformers[i]
+            peso = self.lista_peso_transformers[i]
+
+        if bando == "Autobot":
+            count_autobots += 1
+        elif bando == "Maximal":
+            count_maximals += 1
+
+        total_poder += poder
+
+        if self.lista_color_transformers[i] == "Azul":
+            total_altura_azules += altura
+            count_azules += 1
+
+        if max_altura_transformer is None or altura > max_altura_transformer:
+            max_altura_transformer = altura
+            max_altura_transformer_info = (nombre, bando, poder, altura, peso)
+
+        if min_altura_transformer is None or altura < min_altura_transformer:
+            min_altura_transformer = altura
+            min_altura_transformer_info = (nombre, bando, poder, altura, peso)
+
+        if max_poder_transformer is None or poder > max_poder_transformer:
+            max_poder_transformer = poder
+            max_poder_transformer_info = (nombre, bando, poder, altura, peso)
+
+        if min_poder_transformer is None or poder < min_poder_transformer:
+            min_poder_transformer = poder
+            min_poder_transformer_info = (nombre, bando, poder, altura, peso)
+
+            promedio_poder = total_poder / len(self.lista_nombre_transformers)
+
+        if count_azules > 0:
+            promedio_altura_azules = total_altura_azules / count_azules
+        else:
+            promedio_altura_azules = 0 
+
+        print(f"Cantidad de Autobots: {count_autobots}")
+        print(f"Cantidad de Maximals: {count_maximals}")
+        print(f"Transformer más alto: {max_altura_transformer_info}")
+        print(f"Transformer más bajo: {min_altura_transformer_info}")
+        print(f"Cantidad de Transformers con más de 150 de poder: {sum(poder > 150 for poder in self.lista_poder_transformers)}")
+        print(f"Cantidad de Transformers con menos de 25 metros de altura: {count_azules}")
+        print(f"Bando con más Transformers: {'Autobot' if count_autobots > count_maximals else 'Maximal'}")
+        print(f"Bando con menos Transformers: {'Autobot' if count_autobots < count_maximals else 'Maximal'}")
+        print(f"Promedio de poder de todos los Transformers: {promedio_poder}")
+        print(f"Promedio de poder de Transformers Descepticon: {promedio_poder_descepticon}")
     
     def btn_mostrar_todos_informes_on_click(self):
         self.btn_mostrar_informe_1_on_click()
         self.btn_mostrar_informe_2_on_click()
-
             
-
     
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

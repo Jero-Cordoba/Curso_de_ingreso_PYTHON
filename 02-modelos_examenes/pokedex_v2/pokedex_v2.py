@@ -1,18 +1,3 @@
-# Copyright (C) 2023 <UTN FRA>
-# 
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-# 
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 import tkinter as tk
 from tkinter.messagebox import showinfo as alert
 from tkinter.messagebox import askyesno as question
@@ -20,13 +5,12 @@ from tkinter.simpledialog import askstring as prompt
 import customtkinter
 import warnings
 
-
 '''
 ################# INTRODUCCION #################
 #? El profesor OAK de pueblo paleta quiere que construyas un segundo modelo prototipico 
 #? de pokedex con 10 pokemones de prueba.
 '''
-NOMBRE = '' # Completa tu nombre completo solo en esa variable
+NOMBRE = 'Jerónimo Córdoba' # Completa tu nombre completo solo en esa variable
 '''
 #?################ ENUNCIADO #################
 Para ello deberas programar el boton "Cargar Pokedex" para poder cargar 10 pokemones.
@@ -101,23 +85,66 @@ class App(customtkinter.CTk):
             "Otro", "Otro", "Azul", "Azul", "Azul"
         ]
 
-
     def btn_cargar_pokedex_on_click(self):
-        pass
+        self.lista_nombre_pokemones = []
+        self.lista_altura_pokemones = []
+        self.lista_color_pokemones = []
+
+        for _ in range(10):
+            nombre = prompt("Ingrese el nombre del pokemon:")
+            color = ""
+            while color not in ["azul", "amarillo", "blanco", "otro"]:
+                color = prompt("Ingrese el color del pokemon (azul, amarillo, blanco, otro):").lower()
+
+            altura = 0
+            while not (10 < altura < 200):
+                try:
+                    altura = int(prompt("Ingrese la altura del pokemon en centímetros (entre 10 y 200):"))
+                except ValueError:
+                    altura = 0
+
+            self.lista_nombre_pokemones.append(nombre)
+            self.lista_color_pokemones.append(color.capitalize())  # Convertir la primera letra a mayúscula
+            self.lista_altura_pokemones.append(altura)
+
+        alert("Pokedex cargada con éxito.")
         
-
     def btn_mostrar_informe_1_on_click(self):
-        pass
-
+        print("Lista de Pokemones:")
+        for i in range(len(self.lista_nombre_pokemones)):
+            nombre = self.lista_nombre_pokemones[i]
+            color = self.lista_color_pokemones[i]
+            altura = self.lista_altura_pokemones[i]
+            print(f"{i+1}. {nombre}, Color: {color}, Altura: {altura} cm")
     
     def btn_mostrar_informe_2_on_click(self):
-        pass
+        cantidad_amarillo = self.lista_color_pokemones.count("Amarillo")
+        print(f"Informe 0: Cantidad de pokemones de color amarillo: {cantidad_amarillo}")
 
-    
+        cantidad_blanco = self.lista_color_pokemones.count("Blanco")
+        print(f"Informe 1: Cantidad de pokemones de color blanco: {cantidad_blanco}")
+
+        max_altura_index = self.lista_altura_pokemones.index(max(self.lista_altura_pokemones))
+        nombre_alto = self.lista_nombre_pokemones[max_altura_index]
+        color_alto = self.lista_color_pokemones[max_altura_index]
+        altura_alto = self.lista_altura_pokemones[max_altura_index]
+        print(f"Informe 2: Pokemon más alto - Nombre: {nombre_alto}, Color: {color_alto}, Altura: {altura_alto} cm")
+
+        min_altura_index = self.lista_altura_pokemones.index(min(self.lista_altura_pokemones))
+        nombre_bajo = self.lista_nombre_pokemones[min_altura_index]
+        color_bajo = self.lista_color_pokemones[min_altura_index]
+        altura_bajo = self.lista_altura_pokemones[min_altura_index]
+        print(f"Informe 3: Pokemon más bajo - Nombre: {nombre_bajo}, Color: {color_bajo}, Altura: {altura_bajo} cm")
+
+        cantidad_altura_mas_100 = sum(altura > 100 for altura in self.lista_altura_pokemones)
+        print(f"Informe 4: Cantidad de pokemones con más de 100 cm de altura: {cantidad_altura_mas_100}")
+
+        cantidad_altura_menos_100 = sum(altura < 100 for altura in self.lista_altura_pokemones)
+        print(f"Informe 5: Cantidad de pokemones con menos de 100 cm de altura: {cantidad_altura_menos_100}")
+
     def btn_mostrar_todos_informes_on_click(self):
         self.btn_mostrar_informe_1_on_click()
         self.btn_mostrar_informe_2_on_click()
-
     
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

@@ -1,24 +1,8 @@
-# Copyright (C) 2023 <UTN FRA>
-# 
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-# 
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 import tkinter as tk
 from tkinter.messagebox import showinfo as alert
 from tkinter.messagebox import askyesno as question
 from tkinter.simpledialog import askstring as prompt
 import warnings
-
 import customtkinter
 
 '''
@@ -26,7 +10,7 @@ import customtkinter
 #? El profesor OAK de pueblo paleta quiere que construyas un primer modelo prototipico 
 #? de pokedex con 10 pokemones de prueba.
 '''
-NOMBRE = '' # Completa tu nombre completo solo en esa variable
+NOMBRE = 'Jerónimo Córdoba' # Completa tu nombre completo solo en esa variable
 '''
 #?################ ENUNCIADO #################
 Para ello deberas programar el boton "Cargar Pokedex" para poder cargar 10 pokemones.
@@ -102,25 +86,97 @@ class App(customtkinter.CTk):
             "Fuego", "Psiquico", "Agua", "Electrico", "Tierra"
         ]
 
-
     def btn_cargar_pokedex_on_click(self):
-        pass
-        
+            for i in range(10):
+                nombre = prompt("Poke-Ejercicio", "Ingrese el nombre del pokemon")
+                
+                tipo = prompt("Poke-Ejercicio", "Ingrese el tipo del pokemon")
+                while tipo not in ["Agua", "Electrico", "Fuego", "Psiquico", "Tierra"]:
+                    alert("Poke-Ejercicio", "Tipo invalido")
+                    tipo = prompt("Poke-Ejercicio", "Ingrese el tipo del pokemon")
+                    
+                poder = int(prompt("Poke-Ejercicio", "Ingrese el poder del pokemon"))
+                while poder < 50 or poder > 200:
+                    alert("Poke-Ejercicio", "Poder invalido")
+                    poder = int(prompt("Poke-Ejercicio", "Ingrese el poder del pokemon"))
+                    
+                self.lista_nombre_pokemones.append(nombre)
+                self.lista_poder_pokemones.append(poder)
+                self.lista_tipo_pokemones.append(tipo)
 
+                alert("Se cargaron correctamente los datos.")
+    
     def btn_mostrar_informe_1_on_click(self):
-        pass
-
+        print("Informe 1:")
+        for i, pokemon in enumerate(self.lista_nombre_pokemones, 1):
+            print(f"{i}. {pokemon}")
     
     def btn_mostrar_informe_2_on_click(self):
-        pass
+        print("Informe 2:")
+        tipo_fuego = 0; tipo_electrico = 0
+        pokemones_mas_poderoso = {"Nombre": "", "Tipo": "", "Poder": 0}
+        pokemones_menos_poderoso = {"Nombre": "", "Tipo": "", "Poder": float('inf')}
+        total_poder_mayor_100 = 0; total_poder_menor_100 = 0
+        tipos = {"Agua": 0, "Tierra": 0, "Psiquico": 0, "Fuego": 0, "Electrico": 0}
+        total_poder = 0; total_poder_electrico = 0
+        count_pokemon = len(self.lista_nombre_pokemones)
 
+        for i in range(count_pokemon):
+            if self.lista_tipo_pokemones[i] == "Fuego":
+                tipo_fuego += 1
+            elif self.lista_tipo_pokemones[i] == "Electrico":
+                tipo_electrico += 1
+            
+            if self.lista_poder_pokemones[i] > pokemones_mas_poderoso["Poder"]:
+                pokemones_mas_poderoso["Nombre"] = self.lista_nombre_pokemones[i]
+                pokemones_mas_poderoso["Tipo"] = self.lista_tipo_pokemones[i]
+                pokemones_mas_poderoso["Poder"] = self.lista_poder_pokemones[i]
+            
+            if self.lista_poder_pokemones[i] < pokemones_menos_poderoso["Poder"]:
+                pokemones_menos_poderoso["Nombre"] = self.lista_nombre_pokemones[i]
+                pokemones_menos_poderoso["Tipo"] = self.lista_tipo_pokemones[i]
+                pokemones_menos_poderoso["Poder"] = self.lista_poder_pokemones[i]
+                
+            if self.lista_poder_pokemones[i] > 100:
+                total_poder_mayor_100 += 1
+            
+            if self.lista_poder_pokemones[i] < 100:
+                total_poder_menor_100 += 1
+            
+            tipos[self.lista_tipo_pokemones[i]] += 1
+        
+            tipos[self.lista_tipo_pokemones[i]] += 1
+            
+            total_poder += self.lista_poder_pokemones[i]
+            
+            if self.lista_tipo_pokemones[i] == "Electrico":
+                total_poder_electrico += self.lista_poder_pokemones[i]
+
+        tipo_mas_pokemones = max(tipos, key=tipos.get)
+        
+        tipo_menos_pokemones = min(tipos, key=tipos.get)
+
+        promedio_poder = total_poder / count_pokemon
+
+        if tipo_electrico > 0:
+            promedio_poder_electrico = total_poder_electrico / tipo_electrico
+        else:
+            promedio_poder_electrico = 0
+
+        print(f"0) Cantidad de pokemones de tipo Fuego: {tipo_fuego}")
+        print(f"1) Cantidad de pokemones de tipo Electrico: {tipo_electrico}")
+        print(f"2) Nombre, tipo y Poder del pokemon con el poder mas alto: {pokemones_mas_poderoso}")
+        print(f"3) Nombre, tipo y Poder del pokemon con el poder mas bajo: {pokemones_menos_poderoso}")
+        print(f"4) Cantidad de pokemones, con mas de 100 de poder: {total_poder_mayor_100}")
+        print(f"5) Cantidad de pokemones, con menos de 100 de poder: {total_poder_menor_100}")
+        print(f"6) Tipo de los pokemones del tipo que mas pokemones posea: {tipo_mas_pokemones}")
+        print(f"7) Tipo de los pokemones del tipo que menos pokemones posea: {tipo_menos_pokemones}")
+        print(f"8) El promedio de poder de todos los ingresados: {promedio_poder}")
+        print(f"9) El promedio de poder de todos los pokemones de Electrico: {promedio_poder_electrico}")
     
     def btn_mostrar_todos_informes_on_click(self):
         self.btn_mostrar_informe_1_on_click()
         self.btn_mostrar_informe_2_on_click()
-
-            
-
     
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
