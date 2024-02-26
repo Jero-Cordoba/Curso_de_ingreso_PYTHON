@@ -67,8 +67,8 @@ class App(customtkinter.CTk):
         nombre_gianni = ""
         re_votar = True
         edad_gianni = float('inf')
-        
-        while re_votar ==True:
+        #Se q ya envie el codigo pero me di cuenta de un error importante, si ya tengo el "re_votar" en true, no es necesario q lo iguale
+        while re_votar:
             nombre = input("Ingrese su nombre:").capitalize
             edad = int(input("Ingresa su edad:"))
             genero_votante = input("Ingresa el genero del votante:").capitalize
