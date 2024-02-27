@@ -104,12 +104,12 @@ class App(customtkinter.CTk):
         self.lista_asistencias_a_favor = []
 
         for i in range(10):
-            modo_juego = prompt("Ingrese el modo de juego (Normal, Clasificatoria, ARAM): ").capitalize()
-            while modo_juego not in ["Normal", "Clasificatoria", "ARAM"]:
+            modalidad = prompt("Ingrese el modo de juego (Normal, Clasificatoria, ARAM): ").capitalize()
+            while modalidad not in ["Normal", "Clasificatoria", "ARAM"]:
                 alert("Modo de juego no válido. Intente nuevamente.")
-                modo_juego = prompt("Ingrese el modo de juego (Normal, Clasificatoria, ARAM): ").capitalize()
+                modalidad = prompt("Ingrese el modo de juego (Normal, Clasificatoria, ARAM): ").capitalize()
 
-            nombre_campeon = prompt("Ingrese el nombre del campeón: ")
+            campeon = prompt("Ingrese el nombre del campeón: ")
             asesinatos = int(prompt("Ingrese la cantidad de asesinatos a favor (no puede ser negativo): "))
             while asesinatos < 0:
                 alert("Cantidad de asesinatos no válida. Intente nuevamente.")
@@ -125,8 +125,8 @@ class App(customtkinter.CTk):
                 alert("Cantidad de asistencias no válida. Intente nuevamente.")
                 asistencias = int(prompt("Ingrese la cantidad de asistencias a favor (no puede ser negativo, hasta 40): "))    
             
-            self.lista_modo_de_juego.append(modo_juego)
-            self.lista_nombre_campeones.append(nombre_campeon)
+            self.lista_modo_de_juego.append(modalidad)
+            self.lista_nombre_campeones.append(campeon)
             self.lista_asesinatos_a_favor.append(asesinatos)
             self.lista_muertes_en_contra.append(muertes)
             self.lista_asistencias_a_favor.append(asistencias)

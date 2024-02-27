@@ -1,25 +1,9 @@
-# Copyright (C) 2023 <UTN FRA>
-# 
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-# 
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 import tkinter as tk
 from tkinter.messagebox import showinfo as alert
 from tkinter.messagebox import askyesno as question
 from tkinter.simpledialog import askstring as prompt
 import customtkinter
 import warnings
-
 
 '''
 ################# INTRODUCCION #################
@@ -28,7 +12,7 @@ import warnings
 #? de cualquier parte del universo, es por eso que deberas realizar la carga 
 #? de 10 participantes.
 '''
-NOMBRE = '' # Completa tu nombre completo solo en esa variable
+NOMBRE = 'Jerónimo Córdoba' # Completa tu nombre completo solo en esa variable
 '''
 #?################ ENUNCIADO #################
 Para ello deberas programar el boton "Cargar Guerreros" para poder cargar 10 Caballeros del zodiaco.
@@ -91,8 +75,6 @@ class App(customtkinter.CTk):
         self.btn_mostrar = customtkinter.CTkButton(master=self, text="Mostrar Informes", command=self.btn_mostrar_todos_informes_on_click)
         self.btn_mostrar.grid(row=5, pady=10, columnspan=2, sticky="nsew")
 
-        # Datos de prueba para el boton mostrar
-        # Cargar aca los pokemones
         self.lista_nombre_guerreros = [
             "Hades", "Hyoga", "Ikki", "Ichi", "Tenma",
             "Athena", "Poseidon", "Shaina", "Marin", "Orpheo"
@@ -105,23 +87,89 @@ class App(customtkinter.CTk):
             149000, 48000, 25000, 45000, 35000, 150000, 140000, 55000, 45000, 61000
         ]
 
-
     def btn_cargar_participantes_on_click(self):
-        pass
+        for _ in range(10):
+            nombre = prompt("Ingrese el nombre del Caballero del Zodíaco:")
+            tipo_armadura = prompt("Ingrese el tipo de armadura (Bronce, Plata, Oro, Divina, Oscura):")
+            cosmos = int(prompt("Ingrese la cantidad de cosmos del guerrero (entre 25000 y 150000):"))
+
+            while cosmos < 25000 or cosmos > 150000:
+                alert("La cantidad de cosmos debe estar entre 25000 y 150000.")
+                cosmos = int(prompt("Ingrese la cantidad de cosmos del guerrero (entre 25000 y 150000):"))
+
+            self.lista_nombre_guerreros.append(nombre)
+            self.lista_tipo_armadura_guerreros.append(tipo_armadura.capitalize())
+            self.lista_cosmos_guerreros.append(cosmos)
+
+        alert("Los datos se cargaron correctamente.")
         
-
     def btn_mostrar_informe_1_on_click(self):
-        pass
-
+        print("Informe 1:")
+        for i in range(len(self.lista_nombre_guerreros)):
+            nombre = self.lista_nombre_guerreros[i]
+            tipo_armadura = self.lista_tipo_armadura_guerreros[i]
+            cosmos = self.lista_cosmos_guerreros[i]
+            print(f"Caballero {i + 1}: {nombre} - Armadura: {tipo_armadura} - Cosmos: {cosmos}")
     
     def btn_mostrar_informe_2_on_click(self):
-        pass
+        print("Informe 2:")
+        gold_armor = self.lista_tipo_armadura_guerreros.count("Oro")
 
+        celestials_armor = self.lista_tipo_armadura_guerreros.count("Divina")
+
+        max_cosmos_index = self.lista_cosmos_guerreros.index(max(self.lista_cosmos_guerreros))
+        max_cosmos_info = (
+            self.lista_nombre_guerreros[max_cosmos_index],
+            self.lista_tipo_armadura_guerreros[max_cosmos_index],
+            self.lista_cosmos_guerreros[max_cosmos_index]
+        )
+
+        min_cosmos_index = self.lista_cosmos_guerreros.index(min(self.lista_cosmos_guerreros))
+        min_cosmos_info = (
+            self.lista_nombre_guerreros[min_cosmos_index],
+            self.lista_tipo_armadura_guerreros[min_cosmos_index],
+            self.lista_cosmos_guerreros[min_cosmos_index]
+        )
+
+        iron_armor = sum(1 for i in range(len(self.lista_cosmos_guerreros)) if
+                                        self.lista_cosmos_guerreros[i] > 85000 and self.lista_tipo_armadura_guerreros[i] == "Plata")
+
+        copper_armor = sum(1 for i in range(len(self.lista_cosmos_guerreros)) if
+                                        self.lista_cosmos_guerreros[i] < 50000 and self.lista_tipo_armadura_guerreros[i] == "Bronce")
+
+        armadura_mas_guerreros = max(set(self.lista_tipo_armadura_guerreros), key=self.lista_tipo_armadura_guerreros.count)
+
+        armadura_menos_guerreros = min(set(self.lista_tipo_armadura_guerreros), key=self.lista_tipo_armadura_guerreros.count)
+
+        dark_armor = [cosmos for i, cosmos in enumerate(self.lista_cosmos_guerreros) if
+                                self.lista_tipo_armadura_guerreros[i] == "Oscura"]
+        promedio_cosmos_oscura = sum(dark_armor) / len(dark_armor) if dark_armor else 0
+
+        tipos_armadura = set(self.lista_tipo_armadura_guerreros)
+        for tipo_armadura in tipos_armadura:
+            count_tipo_armadura = self.lista_tipo_armadura_guerreros.count(tipo_armadura)
+            porcentaje_tipo_armadura = (count_tipo_armadura / len(self.lista_tipo_armadura_guerreros)) * 100
+
+            tipos_armaduras = [cosmos for i, cosmos in enumerate(self.lista_cosmos_guerreros) if
+                                    self.lista_tipo_armadura_guerreros[i] == tipo_armadura]
+            promedio_tipos_armaduras = sum(tipos_armaduras) / len(tipos_armaduras) if tipos_armaduras else 0
+
+            print(f"{tipo_armadura}: {porcentaje_tipo_armadura}% - Promedio Cosmos: {promedio_tipos_armaduras}")
+
+        print(f"0) Cantidad de guerreros de armadura de Oro: {gold_armor}")
+        print(f"1) Cantidad de guerreros de armadura Divina: {celestials_armor}")
+        print(f"2) Guerrero más fuerte: Nombre: {max_cosmos_info[0]}, Armadura: {max_cosmos_info[1]}, Cosmos: {max_cosmos_info[2]}")
+        print(f"3) Guerrero más débil: Nombre: {min_cosmos_info[0]}, Armadura: {min_cosmos_info[1]}, Cosmos: {min_cosmos_info[2]}")
+        print(f"4) Cantidad de guerreros con más de 85000 de poder y armadura de Plata: {iron_armor}")
+        print(f"5) Cantidad de guerreros con menos de 50000 de poder y armadura de Bronce: {copper_armor}")
+        print(f"6) Armadura que más guerreros posea inscriptos: {armadura_mas_guerreros}")
+        print(f"7) Armadura que menos guerreros posea inscriptos: {armadura_menos_guerreros}")
+        print(f"8) Promedio de cosmos de todos los guerreros con armadura Oscura: {promedio_cosmos_oscura}")
+        print(f"9) Cantidad de armaduras de cada tipo:" + "\n" + str(tipos_armadura))
     
     def btn_mostrar_todos_informes_on_click(self):
         self.btn_mostrar_informe_1_on_click()
         self.btn_mostrar_informe_2_on_click()
-
     
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

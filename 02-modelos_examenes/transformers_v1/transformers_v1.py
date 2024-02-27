@@ -139,8 +139,8 @@ class App(customtkinter.CTk):
     def btn_mostrar_informe_2_on_click(self):
         print("Segundo Informe:")
     
-        count_autobots = 0
-        count_maximals = 0
+        todos_autobots = 0
+        todos_maximals = 0
         total_poder = 0
         total_altura_azules = 0
         count_azules = 0
@@ -159,9 +159,9 @@ class App(customtkinter.CTk):
             peso = self.lista_peso_transformers[i]
 
         if bando == "Autobot":
-            count_autobots += 1
+            todos_autobots += 1
         elif bando == "Maximal":
-            count_maximals += 1
+            todos_maximals += 1
 
         total_poder += poder
 
@@ -192,16 +192,16 @@ class App(customtkinter.CTk):
         else:
             promedio_altura_azules = 0 
 
-        print(f"Cantidad de Autobots: {count_autobots}")
-        print(f"Cantidad de Maximals: {count_maximals}")
+        print(f"Cantidad de Autobots: {todos_autobots}")
+        print(f"Cantidad de Maximals: {todos_maximals}")
         print(f"Transformer más alto: {max_altura_transformer_info}")
         print(f"Transformer más bajo: {min_altura_transformer_info}")
-        print(f"Cantidad de Transformers con más de 150 de poder: {sum(poder > 150 for poder in self.lista_poder_transformers)}")
+        print(f"Cantidad de Transformers con más de 150 de poder: {sum(poder > 150 for poder in max_poder_transformer_info[2])}")
         print(f"Cantidad de Transformers con menos de 25 metros de altura: {count_azules}")
-        print(f"Bando con más Transformers: {'Autobot' if count_autobots > count_maximals else 'Maximal'}")
-        print(f"Bando con menos Transformers: {'Autobot' if count_autobots < count_maximals else 'Maximal'}")
+        print(f"Bando con más Transformers: {'Autobot' if todos_autobots > todos_maximals else 'Maximal'}")
+        print(f"Bando con menos Transformers: {'Autobot' if todos_autobots < todos_maximals else 'Maximal'}")
         print(f"Promedio de poder de todos los Transformers: {promedio_poder}")
-        print(f"Promedio de poder de Transformers Descepticon: {promedio_poder_descepticon}")
+        print(f"Promedio de poder de Transformers Descepticon: {promedio_altura_azules}")
     
     def btn_mostrar_todos_informes_on_click(self):
         self.btn_mostrar_informe_1_on_click()
