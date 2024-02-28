@@ -51,7 +51,6 @@ class App(customtkinter.CTk):
         self.btn_jugar = customtkinter.CTkButton(master=self, text="JUGAR", command=self.btn_jugar_on_click, fg_color="green")
         self.btn_jugar.grid(row=6, pady=30, columnspan=2, rowspan=2,sticky="nsew")
 
-
     def deshabilitar_botones(self):
         self.btn_sumar.configure(state="disabled")
         self.btn_restar.configure(state="disabled")
@@ -59,17 +58,16 @@ class App(customtkinter.CTk):
 
     def btn_sumar_on_click(self):
         pass
-
+    
     def btn_restar_on_click(self):
         pass
-        
+    
     def btn_multiplicar_on_click(self):
         pass
-        
+    
     def btn_jugar_on_click(self):
         self.deshabilitar_botones()
         pass
-
 
 if __name__ == "__main__":
     app = App()
