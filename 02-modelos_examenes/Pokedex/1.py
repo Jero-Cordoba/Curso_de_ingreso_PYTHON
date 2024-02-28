@@ -114,9 +114,9 @@ class App(customtkinter.CTk):
     def btn_mostrar_informe_2_on_click(self):
         print("Informe 2:")
         fuego = 0; electrico = 0
-        pokemon_mas_poderoso = {"Nombre": "", "Tipo": "", "Poder": 0}
-        pokemon_menos_poderoso = {"Nombre": "", "Tipo": "", "Poder": float('inf')}
-        total_poder_mayor_100 = 0; total_poder_menor_100 = 0
+        mas_poderoso = {"Nombre": "", "Tipo": "", "Poder": 0}
+        menos_poderoso = {"Nombre": "", "Tipo": "", "Poder": float('inf')}
+        mayor_100 = 0; menor_100 = 0
         tipos = {"Agua": 0, "Tierra": 0, "Psiquico": 0, "Fuego": 0, "Electrico": 0}
         total_poder = 0; total_electrico = 0
         pokedex = len(self.lista_nombre_pokemones)
@@ -127,21 +127,21 @@ class App(customtkinter.CTk):
             elif self.lista_tipo_pokemones[i] == "Electrico":
                 electrico += 1
             
-            if self.lista_poder_pokemones[i] > pokemon_mas_poderoso["Poder"]:
-                pokemon_mas_poderoso["Nombre"] = self.lista_nombre_pokemones[i]
-                pokemon_mas_poderoso["Tipo"] = self.lista_tipo_pokemones[i]
-                pokemon_mas_poderoso["Poder"] = self.lista_poder_pokemones[i]
+            if self.lista_poder_pokemones[i] > mas_poderoso["Poder"]:
+                mas_poderoso["Nombre"] = self.lista_nombre_pokemones[i]
+                mas_poderoso["Tipo"] = self.lista_tipo_pokemones[i]
+                mas_poderoso["Poder"] = self.lista_poder_pokemones[i]
             
-            if self.lista_poder_pokemones[i] < pokemon_menos_poderoso["Poder"]:
-                pokemon_menos_poderoso["Nombre"] = self.lista_nombre_pokemones[i]
-                pokemon_menos_poderoso["Tipo"] = self.lista_tipo_pokemones[i]
-                pokemon_menos_poderoso["Poder"] = self.lista_poder_pokemones[i]
+            if self.lista_poder_pokemones[i] < menos_poderoso["Poder"]:
+                menos_poderoso["Nombre"] = self.lista_nombre_pokemones[i]
+                menos_poderoso["Tipo"] = self.lista_tipo_pokemones[i]
+                menos_poderoso["Poder"] = self.lista_poder_pokemones[i]
                 
             if self.lista_poder_pokemones[i] > 100:
-                total_poder_mayor_100 += 1
+                mayor_100 += 1
             
             if self.lista_poder_pokemones[i] < 100:
-                total_poder_menor_100 += 1
+                menor_100 += 1
             
             tipos[self.lista_tipo_pokemones[i]] += 1
         
@@ -165,10 +165,10 @@ class App(customtkinter.CTk):
 
         print(f"0) Cantidad de pokemones de tipo Fuego: {fuego}")
         print(f"1) Cantidad de pokemones de tipo Electrico: {electrico}")
-        print(f"2) Nombre, tipo y Poder del pokemon con el poder mas alto: {pokemon_mas_poderoso}")
-        print(f"3) Nombre, tipo y Poder del pokemon con el poder mas bajo: {pokemon_menos_poderoso}")
-        print(f"4) Cantidad de pokemones, con mas de 100 de poder: {total_poder_mayor_100}")
-        print(f"5) Cantidad de pokemones, con menos de 100 de poder: {total_poder_menor_100}")
+        print(f"2) Nombre, tipo y Poder del pokemon con el poder mas alto: {mas_poderoso}")
+        print(f"3) Nombre, tipo y Poder del pokemon con el poder mas bajo: {menos_poderoso}")
+        print(f"4) Cantidad de pokemones, con mas de 100 de poder: {mayor_100}")
+        print(f"5) Cantidad de pokemones, con menos de 100 de poder: {menor_100}")
         print(f"6) Tipo de los pokemones del tipo que mas pokemones posea: {tipo_mas_pokemones}")
         print(f"7) Tipo de los pokemones del tipo que menos pokemones posea: {tipo_menos_pokemones}")
         print(f"8) El promedio de poder de todos los ingresados: {promedio_poder}")
