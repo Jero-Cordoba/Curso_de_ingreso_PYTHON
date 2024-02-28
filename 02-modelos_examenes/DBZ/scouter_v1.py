@@ -12,7 +12,7 @@ import warnings
 #? de cualquier parte del universo, es por eso que deberas realizar la carga 
 #? de 10 participantes.
 '''
-NOMBRE = 'Jerónimo Córdoba' # Completa tu nombre completo solo en esa variable
+NOMBRE = 'Jerónimo Córdoba' 
 '''
 #?################ ENUNCIADO #################
 Para ello deberas programar el boton "Cargar Participantes" para poder cargar 10 luchadoras/es.

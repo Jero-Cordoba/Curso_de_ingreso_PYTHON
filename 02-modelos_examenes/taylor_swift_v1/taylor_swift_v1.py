@@ -12,7 +12,7 @@ import warnings
 #? Para ello, se solicitará al usuario la siguiente información al momento de 
 #? comprar cada entrada:
 '''
-NOMBRE = 'Jerónimo Córdoba' # Completa tu nombre completo solo en esa variable
+NOMBRE = 'Jerónimo Córdoba'
 '''
 #?################ ENUNCIADO #################
 Para ello deberas programar el boton "Cargar Ventas" para poder cargar 10 ventas.
@@ -169,13 +169,115 @@ class App(customtkinter.CTk):
         ]
 
     def btn_cargar_ventas_on_click(self):
-        pass
+        for i in range(10):
+            
+            nombre = prompt("Ingrese el nombre del comprador:")
+            edad = int(prompt("Ingrese la edad del comprador (mayor o igual a 16):"))
+            genero = prompt("Ingrese el género del comprador (Masculino, Femenino, Otro):")
+            
+            while edad < 16:
+                alert("La edad debe ser mayor o igual a 16.")
+                edad = int(prompt("Ingrese la edad del comprador (mayor o igual a 16):"))
+
+            tipo_entrada = prompt("Ingrese el tipo de entrada (General, Campo delantero, Platea):")
+            medio_pago = prompt("Ingrese el medio de pago (Crédito, Efectivo, Débito):")
+
+            precio = self.calcular_precio_entrada(tipo_entrada, medio_pago)
         
+            venta = {
+                    "Nombre": nombre,
+                    "Edad": edad,
+                    "Género": genero,
+                    "Tipo de Entrada": tipo_entrada,
+                    "Medio de Pago": medio_pago,
+                    "Precio": precio
+                }
+            self.ventas.append(venta)
+            
+            precios_entradas = {
+            "General": 16000,
+            "Campo delantero": 25000,
+            "Platea": 30000
+            }
+
+            descuento_credito = 0.2
+            descuento_debito = 0.15
+
+            precio_base = precios_entradas[tipo_entrada]
+
+            if medio_pago == "Crédito":
+                precio_final = precio_base * (1 - descuento_credito)
+            elif medio_pago == "Débito":
+                precio_final = precio_base * (1 - descuento_debito)
+            else:
+                precio_final = precio_base
+
+            return precio_final
+            
     def btn_mostrar_informe_1_on_click(self):
-        pass
+        print("Informe 1:")
+        for i, venta in enumerate(self.ventas, start=1):
+            print(f"Venta {i}:")
+            print(f"Nombre: {venta['Nombre']}")
+            print(f"Edad: {venta['Edad']}")
+            print(f"Género: {venta['Género']}")
+            print(f"Tipo de Entrada: {venta['Tipo de Entrada']}")
+            print(f"Medio de Pago: {venta['Medio de Pago']}")
+            print(f"Precio: ${venta['Precio']}")
     
     def btn_mostrar_informe_2_on_click(self):
-        pass
+        print("Informe 2:")
+        
+        tipo_entrada_vendida = {"General": 0, "Campo delantero": 0, "Platea": 0}
+        suma_edad_platea = 0; cantidad_platea = 0
+        persona_mayor_platea = {"Nombre": "", "Edad": 0}
+        porcentaje_general = 0; porcentaje_campo = 0
+        edad_menor_mujer_platea = float('inf')
+        nombre_menor_mujer_platea = ""
+        edad_mayor_hombre_general = 0; nombre_mayor_hombre_general = ""
+        
+        total_recaudado = sum(venta["Precio"] for venta in self.ventas)
+        print(f"0) Cantidad total de dinero recaudado: ${total_recaudado}")
+
+
+        for venta in self.ventas:
+            tipo_entrada_vendida[venta["Tipo de Entrada"]] += 1
+            if venta["Tipo de Entrada"] == "Platea":
+                suma_edad_platea += venta["Edad"]
+                cantidad_platea += 1
+                if venta["Edad"] > persona_mayor_platea["Edad"]:
+                    persona_mayor_platea["Nombre"] = venta["Nombre"]
+                    persona_mayor_platea["Edad"] = venta["Edad"]
+
+            if venta["Tipo de Entrada"] == "General" and venta["Género"] == "Masculino" and venta["Edad"] > edad_mayor_hombre_general:
+                nombre_mayor_hombre_general = venta["Nombre"]
+                edad_mayor_hombre_general = venta["Edad"]
+
+            if venta["Tipo de Entrada"] == "Platea" and venta["Género"] == "Femenino" and venta["Edad"] < edad_menor_mujer_platea:
+                nombre_menor_mujer_platea = venta["Nombre"]
+                edad_menor_mujer_platea = venta["Edad"]
+
+        if cantidad_platea != 0:
+            promedio_edad_platea = suma_edad_platea / cantidad_platea
+            print(f"1) Cantidad de entradas vendidas para cada tipo: {tipo_entrada_vendida}")
+            print(f"2) Promedio de edad de las personas que compraron ubicación en Platea: {promedio_edad_platea:.2f}")
+            print(f"3) Nombre de la persona de mayor edad que compró una entrada de platea: {persona_mayor_platea['Nombre']}")
+
+        if cantidad_platea != 0:
+            porcentaje_general = (tipo_entrada_vendida["General"] / cantidad_platea) * 100
+
+        if cantidad_platea != 0:
+            porcentaje_campo = (tipo_entrada_vendida["Campo delantero"] / cantidad_platea) * 100
+
+        print(f"4) Porcentaje de entradas vendidas de tipo 'General': {porcentaje_general:.2f}%")
+        print(f"5) Porcentaje de entradas vendidas de tipo 'Campo delantero': {porcentaje_campo:.2f}")
+        print(f"6) Nombre de la/s persona/s de menor edad, de género Femenino que compró una entrada Platea: {nombre_menor_mujer_platea}")
+        print(f"7) Nombre de la/s persona/s de mayor edad, de género Masculino que compró una entrada general: {nombre_mayor_hombre_general}")
+
+        tipo_entrada_mas_vendida = max(tipo_entrada_vendida, key=tipo_entrada_vendida.get)
+        tipo_entrada_menos_vendida = min(tipo_entrada_vendida, key=tipo_entrada_vendida.get)
+        print(f"8) Tipo de entradas más vendidas: {tipo_entrada_mas_vendida}")
+        print(f"9) Tipo de entradas menos vendidas: {tipo_entrada_menos_vendida}")
     
     def btn_mostrar_todos_informes_on_click(self):
         self.btn_mostrar_informe_1_on_click()

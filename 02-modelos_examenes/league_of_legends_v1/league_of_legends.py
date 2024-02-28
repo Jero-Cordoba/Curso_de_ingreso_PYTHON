@@ -10,7 +10,7 @@ import warnings
 #? Un jugador de League of Legends tiene un fin de semana libre y 
 #? va a jugar partidas hasta que se canse.
 '''
-NOMBRE = 'Jerónimo Córdoba' # Completa tu nombre completo solo en esa variable
+NOMBRE = 'Jerónimo Córdoba' 
 '''
 #?################ ENUNCIADO #################
 Para ello deberas programar el boton "Cargar Campeones" para poder cargar 10 personajes del juego.
@@ -134,15 +134,20 @@ class App(customtkinter.CTk):
 
     def btn_mostrar_informe_1_on_click(self):
         print("Informe 1:")
+        dni = int(NOMBRE[-1])
+        informe_number = dni 
+        if dni <= 4:
+            informe_number = 9 - dni
+        elif dni <= 9:
+            informe_number = dni - 5
+        print(f"Realizar informe {informe_number}")
+
         for i, campeon in enumerate(self.lista_nombre_campeones, 1):
             print(f"{i}. {campeon}")
-            dni = int(NOMBRE.split()[-1][-1])
-            informe_number = dni if dni <= 4 else 9 - dni
-            print(f"Realizar informe {informe_number}")
     
     def btn_mostrar_informe_2_on_click(self):
         print("Informe 2:")
-    
+
         print(f"0) Modo de juego más jugado: {self.modo_mas_jugado()}")
         
         print(f"1) Modo de juego menos jugado: {self.modo_menos_jugado()}")
@@ -156,15 +161,18 @@ class App(customtkinter.CTk):
         print(f"5) Promedio de muertes en contra en modo ARAM: {self.promedio_muertes_modo('ARAM')}")
         
         print(f"6) Promedio de asistencias en modo Normal: {self.promedio_asistencias_modo('Normal')}")
-        
+
         partida_mas_muertes_info = self.partida_mas_muertes()
-        print(f"7) De la partida con más muertes en contra: {partida_mas_muertes_info}")
+        if partida_mas_muertes_info:
+            print(f"7) De la partida con más muertes en contra: {partida_mas_muertes_info[0]} (Personaje: {partida_mas_muertes_info[1]}, Modo: {partida_mas_muertes_info[2]})")
         
         partida_mas_asistencias_info = self.partida_mas_asistencias()
-        print(f"8) De la partida con más asistencias a favor: {partida_mas_asistencias_info}")
+        if partida_mas_asistencias_info:
+            print(f"8) De la partida con más asistencias a favor: {partida_mas_asistencias_info[0]} (Personaje: {partida_mas_asistencias_info[1]}, Modo: {partida_mas_asistencias_info[2]})")
         
         partida_mas_asesinatos_info = self.partida_mas_asesinatos()
-        print(f"9) De la partida con más asesinatos a favor: {partida_mas_asesinatos_info}")
+        if partida_mas_asesinatos_info:
+            print(f"9) De la partida con más asesinatos a favor: {partida_mas_asesinatos_info[0]} (Personaje: {partida_mas_asesinatos_info[1]}, Modo: {partida_mas_asesinatos_info[2]})")
 
     def btn_mostrar_todos_informes_on_click(self):
         self.btn_mostrar_informe_1_on_click()

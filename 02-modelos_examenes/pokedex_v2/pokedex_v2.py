@@ -10,7 +10,7 @@ import warnings
 #? El profesor OAK de pueblo paleta quiere que construyas un segundo modelo prototipico 
 #? de pokedex con 10 pokemones de prueba.
 '''
-NOMBRE = 'Jerónimo Córdoba' # Completa tu nombre completo solo en esa variable
+NOMBRE = 'Jerónimo Córdoba' 
 '''
 #?################ ENUNCIADO #################
 Para ello deberas programar el boton "Cargar Pokedex" para poder cargar 10 pokemones.
@@ -104,7 +104,7 @@ class App(customtkinter.CTk):
                     altura = 0
 
             self.lista_nombre_pokemones.append(nombre)
-            self.lista_color_pokemones.append(color.capitalize())  # Convertir la primera letra a mayúscula
+            self.lista_color_pokemones.append(color.capitalize())
             self.lista_altura_pokemones.append(altura)
 
         alert("Pokedex cargada con éxito.")

@@ -12,7 +12,7 @@ import customtkinter
 #? para ello habra que construir un programita que ayude con esa cuestion y 
 #? recobrar la paz.
 '''
-NOMBRE = 'Jerónimo Córdoba' # Completa tu nombre completo solo en esa variable
+NOMBRE = 'Jerónimo Córdoba' 
 '''
 #?################ ENUNCIADO #################
 Es por eso que deberas programar el boton "Cargar Transformer" para poder cargar 10 robots.

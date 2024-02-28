@@ -10,7 +10,7 @@ import customtkinter
 #? El profesor OAK de pueblo paleta quiere que construyas un primer modelo prototipico 
 #? de pokedex con 10 pokemones de prueba.
 '''
-NOMBRE = 'Jerónimo Córdoba' # Completa tu nombre completo solo en esa variable
+NOMBRE = 'Jerónimo Córdoba' 
 '''
 #?################ ENUNCIADO #################
 Para ello deberas programar el boton "Cargar Pokedex" para poder cargar 10 pokemones.
