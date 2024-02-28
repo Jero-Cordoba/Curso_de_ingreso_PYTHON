@@ -1,18 +1,3 @@
-# Copyright (C) 2023 <UTN FRA>
-# 
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-# 
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 from tkinter.messagebox import showinfo as alert
 from tkinter.messagebox import askyesno as question
 from tkinter.simpledialog import askstring as prompt
@@ -25,7 +10,7 @@ import warnings
 # Nos encargan el desarrollo de una aplicación que le permita a sus usuarios inscribirse a 
     un listado de viajeros para un nuevo transbordador de SpaceX:
 '''
-NOMBRE = 'Facundo Falcone' # Completa tu nombre completo solo en esa variable
+NOMBRE = 'Jerónimo Córdoba' # Completa tu nombre completo solo en esa variable
 '''
 #?################ ENUNCIADO #################
 A) Para ello deberás programar el botón 'Cargar Viajeros' para poder cargar los siguientes datos de 5 personas:
@@ -125,22 +110,109 @@ class App(customtkinter.CTk):
             55, 46, 18, 12, 47, 42, 99, 35, 37, 90
         ]
 
-
     def btn_cargar_viajeros_on_click(self):
-        pass
+        self.lista_viajeros = []
+        for _ in range(5):
+            nombre = prompt("Ingrese el nombre del viajero:")
+            altura = int(prompt("Ingrese la altura del viajero (entre 60 cm y 200 cm):"))
+            while altura < 60 or altura > 200:
+                altura = int(prompt("Altura inválida. Ingrese la altura del viajero (entre 60 cm y 200 cm):"))
 
+            peso = int(prompt("Ingrese el peso del viajero (entre 40 kg y 250 kg):"))
+            while peso < 40 or peso > 250:
+                peso = int(prompt("Peso inválido. Ingrese el peso del viajero (entre 40 kg y 250 kg):"))
+
+            edad = int(prompt("Ingrese la edad del viajero (entre 1 y 100):"))
+            while edad < 1 or edad > 100:
+                edad = int(prompt("Edad inválida. Ingrese la edad del viajero (entre 1 y 100):"))
+
+            self.lista_viajeros.append((nombre, altura, peso, edad))
 
     def btn_mostrar_datos_crudo_on_click(self):
-        pass
-
+        for i, viajero in enumerate(self.lista_viajeros):
+            print(f"Posición {i + 1}: {viajero}")
 
     def btn_mostrar_informe_1_on_click(self):
-        pass
+        informe_numero = int(NOMBRE[-1]) % 2 
 
+        if informe_numero == 0:
+            persona_menor_peso = self.obtener_persona_menor_peso()
+            cantidad_personas_mas_50 = sum(1 for viajero in self.lista_viajeros if viajero[3] > 50)
 
+            print(f"A- Nombre de la persona con el menor peso ingresado: {persona_menor_peso[0]}")
+            print(f"B- Cantidad de personas de más de 50 años: {cantidad_personas_mas_50}")
+
+        elif informe_numero == 1:
+            persona_mayor_peso = self.obtener_persona_mayor_peso()
+            cantidad_personas_menos_50 = sum(1 for viajero in self.lista_viajeros if viajero[3] < 50)
+
+            print(f"A- Nombre de la persona con el mayor peso ingresado: {persona_mayor_peso[0]}")
+            print(f"B- Cantidad de personas de menos de 50 años: {cantidad_personas_menos_50}")
+        
+    def obtener_persona_menor_peso(self):
+        menor_peso = float('inf')
+        persona_menor_peso = None
+
+        for viajero in self.lista_viajeros:
+            peso_actual = viajero[2]
+            if peso_actual < menor_peso:
+                menor_peso = peso_actual
+                persona_menor_peso = viajero
+
+        return persona_menor_peso
+
+    def obtener_persona_mayor_peso(self):
+        mayor_peso = float('-inf')
+        persona_mayor_peso = None
+
+        for viajero in self.lista_viajeros:
+            peso_actual = viajero[2]
+            if peso_actual > mayor_peso:
+                mayor_peso = peso_actual
+                persona_mayor_peso = viajero
+
+        return persona_mayor_peso
+    
     def btn_mostrar_informe_2_on_click(self):
-        pass
+        informe_numero = int(NOMBRE[-1]) % 2 
 
+        if informe_numero == 0:
+            persona_mayor_altura = self.obtener_persona_mayor_altura()
+            cantidad_personas_mas_80_kilos = sum(1 for viajero in self.lista_viajeros if viajero[2] > 80)
+
+            print(f"A- Nombre de la persona con la mayor altura ingresada: {persona_mayor_altura[0]}")
+            print(f"B- Cantidad de personas de más de 80 kilos: {cantidad_personas_mas_80_kilos}")
+
+        elif informe_numero == 1:
+            persona_menor_altura = self.obtener_persona_menor_altura()
+            cantidad_personas_menos_100_kilos = sum(1 for viajero in self.lista_viajeros if viajero[2] < 100)
+
+            print(f"A- Nombre de la persona con la menor altura ingresada: {persona_menor_altura[0]}")
+            print(f"B- Cantidad de personas de menos de 100 kilos: {cantidad_personas_menos_100_kilos}")
+
+    def obtener_persona_mayor_altura(self):
+        mayor_altura = float('-inf')
+        persona_mayor_altura = None
+
+        for viajero in self.lista_viajeros:
+            altura_actual = viajero[1]
+            if altura_actual > mayor_altura:
+                mayor_altura = altura_actual
+                persona_mayor_altura = viajero
+
+        return persona_mayor_altura
+
+    def obtener_persona_menor_altura(self):
+        menor_altura = float('inf')
+        persona_menor_altura = None
+
+        for viajero in self.lista_viajeros:
+            altura_actual = viajero[1]
+            if altura_actual < menor_altura:
+                menor_altura = altura_actual
+                persona_menor_altura = viajero
+
+        return persona_menor_altura
 
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")

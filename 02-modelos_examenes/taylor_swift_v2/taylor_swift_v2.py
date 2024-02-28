@@ -1,25 +1,9 @@
-# Copyright (C) 2023 <UTN FRA>
-# 
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-# 
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 import tkinter as tk
 from tkinter.messagebox import showinfo as alert
 from tkinter.messagebox import askyesno as question
 from tkinter.simpledialog import askstring as prompt
 import customtkinter
 import warnings
-
 
 '''
 ################# INTRODUCCION #################
@@ -28,7 +12,7 @@ import warnings
 #? Para ello, se solicitará al usuario la siguiente información al momento de 
 #? comprar cada entrada:
 '''
-NOMBRE = '' # Completa tu nombre completo solo en esa variable
+NOMBRE = 'Jerónimo  Córdoba' 
 '''
 #?################ ENUNCIADO #################
 Para ello deberas programar el boton "Cargar Ventas" para poder cargar 10 ventas.
@@ -190,24 +174,116 @@ class App(customtkinter.CTk):
             16000, 25000, 30000, 16000, 25000, 30000, 16000, 25000, 30000, 16000
         ]
 
-
-
     def btn_cargar_ventas_on_click(self):
-        pass
+        for _ in range(10):
+            nombre_comprador = prompt("Ingrese el nombre del comprador:")
+
+            edad = 0
+            while edad < 16:
+                try:
+                    edad = int(prompt("Ingrese la edad del comprador (mayor o igual a 16):"))
+                except ValueError:
+                    edad = 0
+
+            genero = ""
+            while genero.lower() not in ["masculino", "femenino", "otro"]:
+                genero = prompt("Ingrese el género del comprador (Masculino, Femenino, Otro):").lower()
+
+            tipo_entrada = ""
+            while tipo_entrada.lower() not in ["general", "campo delantero", "platea"]:
+                tipo_entrada = prompt("Ingrese el tipo de entrada (General, Campo delantero, Platea):").lower()
+
+            medio_pago = ""
+            while medio_pago.lower() not in ["credito", "efectivo", "debito"]:
+                medio_pago = prompt("Ingrese el medio de pago (Crédito, Efectivo, Débito):").lower()
+
+            precio_entrada = 0
+            if tipo_entrada.lower() == "general":
+                precio_entrada = 16000
+            elif tipo_entrada.lower() == "campo delantero":
+                precio_entrada = 25000
+            elif tipo_entrada.lower() == "platea":
+                precio_entrada = 30000
+
+            if medio_pago.lower() == "credito":
+                precio_entrada *= 0.8  
+            elif medio_pago.lower() == "debito":
+                precio_entrada *= 0.85 
+
+            venta = [
+                nombre_comprador,
+                edad,
+                genero.capitalize(),
+                tipo_entrada.capitalize(),
+                medio_pago.capitalize(),
+                precio_entrada
+            ]
+
+            self.lista_ventas.append(venta)
+
+        alert("Ventas cargadas con éxito.")
         
-
     def btn_mostrar_informe_1_on_click(self):
-        pass
+        for i, venta in enumerate(self.lista_ventas):
+            print(f"Venta {i + 1}: {venta}")
 
+        informe_numero = int(NOMBRE[-1])
+
+        if informe_numero % 2 == 0:
+            generos_campo = [venta[2] for venta in self.lista_ventas if venta[3] == "Campo delantero"]
+            genero_mas_frecuente = max(set(generos_campo), key=generos_campo.count)
+            print(f"Género más frecuente entre las personas que compraron entradas de tipo 'Campo': {genero_mas_frecuente}")
+
+            personas_mayores_30 = [venta for venta in self.lista_ventas if venta[1] > 30]
+            if personas_mayores_30:
+                cantidad_entradas_mayores_30 = sum(venta[0] for venta in personas_mayores_30)
+                precio_promedio_mayores_30 = sum(venta[5] for venta in personas_mayores_30) / len(personas_mayores_30)
+                print(f"Número total de entradas compradas por personas mayores de 30 años: {cantidad_entradas_mayores_30}")
+                print(f"Precio promedio: {precio_promedio_mayores_30}")
+            else:
+                print("No hay personas mayores de 30 años en la lista.")
+
+        else:
+            personas_general_credito = [venta for venta in self.lista_ventas if venta[3] == "General" and venta[4] == "Credito"]
+            if personas_general_credito:
+                cantidad_personas_general_credito = len(personas_general_credito)
+                edad_promedio_general_credito = sum(venta[1] for venta in personas_general_credito) / cantidad_personas_general_credito
+                print(f"Cantidad de personas que compraron entradas de tipo 'General' pagando con tarjeta de crédito: {cantidad_personas_general_credito}")
+                print(f"Edad promedio de estas personas: {edad_promedio_general_credito}")
+            else:
+                print("No hay personas que cumplan con las condiciones.")
     
     def btn_mostrar_informe_2_on_click(self):
-        pass
+        total_personas = len(self.lista_ventas)
+        personas_platea_debito = [venta for venta in self.lista_ventas if venta[3] == "Platea" and venta[4] == "Debito"]
+        porcentaje_platea_debito = (len(personas_platea_debito) / total_personas) * 100
 
-    
+        print(f"Porcentaje de personas que compraron entradas de tipo 'Platea' y pagaron con tarjeta de débito: {porcentaje_platea_debito}%")
+
+        def es_primo(num):
+            if num < 2:
+                return False
+            for i in range(2, int(num ** 0.5) + 1):
+                if num % i == 0:
+                    return False
+            return True
+
+        personas_platea_primo = [venta for venta in self.lista_ventas if venta[3] == "Platea" and es_primo(venta[1])]
+        cantidad_platea_primo = len(personas_platea_primo)
+
+        print(f"Cantidad de personas que compraron entradas de tipo 'Platea' y cuya edad es un número primo: {cantidad_platea_primo}")
+
+        monto_total_general_credito_multiplo_5 = sum(venta[5] for venta in self.lista_ventas if venta[3] == "General" and venta[4] == "Credito" and venta[1] % 5 == 0)
+
+        print(f"Monto total recaudado por la venta de entradas de tipo 'General' y pagadas con tarjeta de crédito por personas cuyas edades son múltiplos de 5: {monto_total_general_credito_multiplo_5}")
+
+        monto_total_platea_debito_multiplo_6 = sum(venta[5] for venta in self.lista_ventas if venta[3] == "Platea" and venta[4] == "Debito" and venta[1] % 6 == 0)
+
+        print(f"Monto total recaudado por la venta de entradas de tipo 'Platea' y pagadas con tarjeta de débito por personas cuyas edades son múltiplos de 6: {monto_total_platea_debito_multiplo_6}")
+            
     def btn_mostrar_todos_informes_on_click(self):
         self.btn_mostrar_informe_1_on_click()
         self.btn_mostrar_informe_2_on_click()
-
     
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
