@@ -1,25 +1,9 @@
-# Copyright (C) 2023 <UTN FRA>
-# 
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-# 
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 import tkinter as tk
 from tkinter.messagebox import showinfo as alert
 from tkinter.messagebox import askyesno as question
 from tkinter.simpledialog import askstring as prompt
 import customtkinter
 import warnings
-
 
 '''
 ################# INTRODUCCION #################
@@ -28,7 +12,7 @@ import warnings
 #? Para ello, se solicitará al usuario la siguiente información al momento de 
 #? comprar cada entrada:
 '''
-NOMBRE = '' # Completa tu nombre completo solo en esa variable
+NOMBRE = 'Jerónimo Córdoba' # Completa tu nombre completo solo en esa variable
 '''
 #?################ ENUNCIADO #################
 Para ello deberas programar el boton "Cargar Ventas" para poder cargar 10 ventas.
@@ -184,24 +168,19 @@ class App(customtkinter.CTk):
             16000, 25000, 30000, 16000, 25000, 30000, 16000, 25000, 30000, 16000
         ]
 
-
     def btn_cargar_ventas_on_click(self):
         pass
         
-
     def btn_mostrar_informe_1_on_click(self):
         pass
-
     
     def btn_mostrar_informe_2_on_click(self):
         pass
-
     
     def btn_mostrar_todos_informes_on_click(self):
         self.btn_mostrar_informe_1_on_click()
         self.btn_mostrar_informe_2_on_click()
 
-    
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
     app = App()
