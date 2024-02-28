@@ -1,25 +1,9 @@
-# Copyright (C) 2023 <UTN FRA>
-# 
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-# 
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
 import tkinter as tk
 from tkinter.messagebox import showinfo as alert
 from tkinter.messagebox import askyesno as question
 from tkinter.simpledialog import askstring as prompt
 import customtkinter
 import warnings
-
 
 '''
 ################# INTRODUCCION #################
@@ -28,7 +12,7 @@ import warnings
 #? de cualquier parte del universo, es por eso que deberas realizar la carga 
 #? de 10 participantes.
 '''
-NOMBRE = '' # Completa tu nombre completo solo en esa variable
+NOMBRE = 'Jerónimo Córdoba' # Completa tu nombre completo solo en esa variable
 '''
 #?################ ENUNCIADO #################
 Para ello deberas programar el boton "Cargar Participantes" para poder cargar 10 luchadoras/es.
@@ -104,23 +88,73 @@ class App(customtkinter.CTk):
             4900, 4800, 200, 4500, 3500, 5000, 600, 550, 450, 610
         ]
 
-
     def btn_cargar_participantes_on_click(self):
-        pass
+        for i in range(10):
+            nombre = prompt("Ingrese el nombre del luchador/a:")
+            raza = prompt("Ingrese el tipo de raza (Terricola, Namekiano, Alienigena, Saiyajin):")
+            
+            while True:
+                try:
+                    poder = int(prompt("Ingrese la cantidad de poder del participante (entre 100 y 5000):"))
+                    if 100 <= poder <= 5000:
+                        break
+                    else:
+                        alert("El poder debe estar entre 100 y 5000. Inténtelo nuevamente.")
+                except ValueError:
+                    alert("Por favor, ingrese un valor numérico válido para el poder.")
+
+            self.lista_nombre_participantes.append(nombre)
+            self.lista_raza_participantes.append(raza)
+            self.lista_poder_participantes.append(poder)
         
-
     def btn_mostrar_informe_1_on_click(self):
-        pass
+        for i in range(len(self.lista_nombre_participantes)):
+            nombre = self.lista_nombre_participantes[i]
+            raza = self.lista_raza_participantes[i]
+            poder = self.lista_poder_participantes[i]
 
+        print(f"Posición {i + 1}: {nombre} - Raza: {raza} - Poder: {poder}")
     
     def btn_mostrar_informe_2_on_click(self):
-        pass
+        terricolas = 0; aliens = 0
+        nombre_mas_fuerte = ""; raza_mas_fuerte = ""
+        poder_mas_fuerte = 0
+        nombre_mas_debil = ""; raza_mas_debil = ""
+        poder_mas_debil = float('inf')
+        poder_2500 = 0
 
+        for i in range(len(self.lista_nombre_participantes)):
+            raza = self.lista_raza_participantes[i]
+            poder = self.lista_poder_participantes[i]
+
+            if raza == "Terricola":
+                terricolas += 1
+
+            elif raza == "Alienigena":
+                aliens += 1
+
+            if poder > poder_mas_fuerte:
+                nombre_mas_fuerte = self.lista_nombre_participantes[i]
+                raza_mas_fuerte = raza
+                poder_mas_fuerte = poder
+
+            if poder < poder_mas_debil:
+                nombre_mas_debil = self.lista_nombre_participantes[i]
+                raza_mas_debil = raza
+                poder_mas_debil = poder
+
+            if poder > 2500:
+                poder_2500 += 1
+
+        print(f"0) Cantidad de luchadores Terricolas: {terricolas}")
+        print(f"1) Cantidad de luchadores Alienigenas: {aliens}")
+        print(f"2) Luchador más fuerte - Nombre: {nombre_mas_fuerte}, Raza: {raza_mas_fuerte}, Poder: {poder_mas_fuerte}")
+        print(f"3) Luchador más débil - Nombre: {nombre_mas_debil}, Raza: {raza_mas_debil}, Poder: {poder_mas_debil}")
+        print(f"4) Cantidad de luchadores con más de 2500 de poder: {poder_2500}")
     
     def btn_mostrar_todos_informes_on_click(self):
         self.btn_mostrar_informe_1_on_click()
         self.btn_mostrar_informe_2_on_click()
-
     
 if __name__ == "__main__":
     warnings.filterwarnings("ignore")
