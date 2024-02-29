@@ -66,108 +66,155 @@ class App(customtkinter.CTk):
         self.lista_datos = [2,3,5,7,11,13]
 
     def btn_mostrar_on_click(self):
-        masculino = 0; femenino = 0; noBinario = 0
-        edad_masculino = 0; edad_femenino = 0
+        total_personas = 5
+        contadores_sexo = {'F': 0, 'M': 0, 'NB': 0}
         fiebre = 0; no_fiebre = 0
-        mayores = 0; menores = 0; suma_edad_mayores = 0; temperatura_menor_edad = 0
-        
-        nombre_noBinario = []
-        nombres_masculino_baja = []
-        nombres_femenino_alta = []
-        
-        while len(nombre_noBinario) < 5:
-            nombre = prompt("Ingrese el nombre")
-        
-        while True:
-            try: 
-                temperatura = float(prompt("Ingrese la temperatura"))
-                if temperatura <= 35 or temperatura >= 42:
-                    break
+        edad_masculino = 0;edad_noBinario = 0; edad_femenino = 0
+        total_mayores_edad = 0; total_menores_edad = 0
+        edad_mayores = 0; temperatura_menores = 0
+        nombres_sexo_masculino_temp_baja = []
+        nombres_sexo_femenino_temp_baja = []
+        nombres_sexo_nb_temp_alta = []
+
+        for i in range(total_personas):
+            nombre = input(f"Ingrese el nombre de la persona {i + 1}: ")
+
+            temperatura = float(input(f"Ingrese la temperatura de {nombre}: "))
+            while temperatura < 35 or temperatura > 42:
+                temperatura = float(input("Temperatura inválida. Ingrese la temperatura: "))
+
+            sexo = input(f"Ingrese el sexo de {nombre} (F, M, NB): ").upper()
+            while sexo not in ['F', 'M', 'NB']:
+                sexo = input("Sexo inválido. Ingrese el sexo (F, M, NB): ").upper()
+
+            edad = int(input(f"Ingrese la edad de {nombre}: "))
+            while edad <= 0:
+                edad = int(input("Edad inválida. Ingrese la edad: "))
+
+            contadores_sexo[sexo] += 1
+
+            if temperatura >= 38:
+                fiebre += 1
+            else:
+                no_fiebre += 1
+
+            if int(nombre[-1]) in [0, 1]:
+                if sexo == 'F':
+                    contadores_sexo['F'] += 1
+                    edad_femenino += edad
+                    if temperatura < 35.0:
+                        nombres_sexo_femenino_temp_baja.append(nombre)
+                elif sexo == 'M':
+                    edad_masculino += edad
+                    if temperatura < 35.0:
+                        nombres_sexo_masculino_temp_baja.append(nombre)
                 else:
-                    alert("La temperatura debe estar entre 35 y 42")
-            except:
-                alert("La temperatura debe ser un valor numerico")
-            
-        genero = prompt("Ingrese el genero").lower()
-        match genero:
-            case "masculino":
-                masculino += 1
-                edad_masculino += 1
-                if temperatura < 37:
-                    nombres_masculino_baja.append(nombre)
-            case "femenino":
-                femenino += 1
-                edad_femenino += 1
-                if temperatura > 37:
-                    nombres_femenino_alta.append(nombre)
-                    fiebre += 1
+                    edad_noBinario += edad
+                    if temperatura > 42.0:
+                        nombres_sexo_nb_temp_alta.append(nombre)
+
+            elif int(nombre[-1]) in [2, 3]:
+                if sexo == 'M':
+                    contadores_sexo['M'] += 1
+                    edad_noBinario += edad
+                    if temperatura < 35.0:
+                        nombres_sexo_nb_temp_alta.append(nombre)
+                elif sexo == 'NB':
+                    edad_noBinario += edad
                 else:
-                    no_fiebre += 1
-            case "no binario":
-                noBinario += 1
-                nombre_noBinario.append(nombre)
-                if temperatura < 38:
-                    fiebre += 1
+                    edad_femenino += edad
+                    if temperatura < 35.0:
+                        nombres_sexo_femenino_temp_baja.append(nombre)
+
+            elif int(nombre[-1]) in [4, 5]:
+                if sexo == 'NB':
+                    contadores_sexo['NB'] += 1
+                elif sexo == 'F':
+                    contadores_sexo['F'] += 1
+                    edad_femenino += edad
+                    if temperatura < 35.0:
+                        nombres_sexo_femenino_temp_baja.append(nombre)
                 else:
-                    no_fiebre += 1
-            case _:
-                alert("El genero debe ser 'm', 'f' o 'nb'")
-                    
-        while True:
-            try:
-                edad = int(prompt("Ingrese su edad"))
-                if edad > 0:
-                    break
-                else:
-                    alert("La edad debe ser mayor a 0")
-            except:
-                alert("La edad debe ser un valor numerico")
-        if edad >= 18:
-            mayores += 1
-            suma_edad_mayores += edad
+                    edad_masculino += edad
+                    if temperatura < 35.0:
+                        nombres_sexo_masculino_temp_baja.append(nombre)
+
+            elif int(nombre[-1]) in [6, 7]:
+                if edad >= 18:
+                    total_mayores_edad += 1
+                    edad_mayores += edad
+                    if sexo == 'M' and temperatura < 35.0:
+                        nombres_sexo_masculino_temp_baja.append(nombre)
+                if sexo == 'M':
+                    edad_masculino += edad
+                    if temperatura < 35.0:
+                        nombres_sexo_masculino_temp_baja.append(nombre)
+
+            elif int(nombre[-1]) in [8, 9]:
+                if edad < 18:
+                    total_menores_edad += 1
+                    temperatura_menores += temperatura
+                    if sexo == 'F' and temperatura < 35.0:
+                        nombres_sexo_femenino_temp_baja.append(nombre)
+
+        sexo_mas_ingresado = max(contadores_sexo, key=contadores_sexo.get)
+
+        porcentaje_fiebre = (fiebre / total_personas) * 100
+        porcentaje_sin_fiebre = (no_fiebre / total_personas) * 100
+
+        if contadores_sexo['F'] > 0:
+            edad_promedio_femenino = edad_femenino / contadores_sexo['F']
         else:
-            menores += 1
-            temperatura_menor_edad += temperatura
+            edad_promedio_femenino = 0
 
-        porcentaje_fiebre = (fiebre/5)*100
-        porcentaje_no_fiebre = (no_fiebre/5)*100
-        
-        dni_terminacion = int(prompt("Ingrese los últimos dígitos del DNI (0-9):"))
+        if contadores_sexo['M'] > 0:
+            edad_promedio_masculino = edad_masculino / contadores_sexo['M']
+        else:
+            edad_promedio_masculino = 0
 
-        if dni_terminacion in [0, 1]:
-            if genero.lower() == 'f':
-                femenino += 1
-            elif genero.lower() == 'm':
-                masculino += edad
-            elif genero.lower() == 'nb':
-                if not nb_temperatura_alta_01 or temperatura > nb_temperatura_alta_01[1]:
-                    nb_temperatura_alta_01 = (nombre, temperatura)
-        
-        resultado = f"Sexo más ingresado: {genero}\n" \
-                    f"Porcentaje de personas con fiebre: {porcentaje_fiebre}%\n" \
-                    f"Porcentaje de personas sin fiebre: {porcentaje_no_fiebre}%\n\n" \
-                    f"Información para DNI terminados en 0 o 1:\n" \
-                    f"Cantidad de personas de sexo femenino: {femenino}\n" \
-                    f"Edad promedio de personas de sexo masculino: {edad_femenino}\n" \
-                    f"Nombre de la persona NB con más temperatura: {nombre_noBinario[0]} ({temperatura}°C)\n\n" \
-                    f"Información para DNI terminados en 2 o 3:\n" \
-                    f"Cantidad de personas de sexo masculino: {femenino}\n" \
-                    f"Edad promedio de personas de sexo NB: {edad_femenino}\n" \
-                    f"Nombre de la persona femenino con temperatura más baja: {nombres_femenino_alta[0]} ({nombres_femenino_alta[1]}°C)\n\n" \
-                    f"Información para DNI terminados en 4 o 5:\n" \
-                    f"Cantidad de personas de sexo NB: {noBinario}\n" \
-                    f"Edad promedio de personas de sexo femenino: {edad_masculino}\n" \
-                    f"Nombre de la persona masculino con temperatura más baja: {nombres_masculino_baja[0]} ({nombres_masculino_baja[1]}°C)\n\n" \
-                    f"Información para DNI terminados en 6 o 7:\n" \
-                    f"Cantidad de personas mayores de edad: {mayores}\n" \
-                    f"Edad promedio de todas las personas mayores de edad: {suma_edad_mayores/mayores}\n" \
-                    f"Nombre de la persona masculino con temperatura más baja: {nombres_masculino_baja[0]} ({nombres_masculino_baja[1]}°C)\n\n" \
-                    f"Información para DNI terminados en 8 o 9:\n" \
-                    f"Cantidad de personas menores de edad: {menores}\n" \
-                    f"Temperatura promedio de todas las personas menores de edad: {temperatura_menor_edad/menores}\n" \
-                    f"Nombre de la persona femenino con temperatura más baja: {nombres_femenino_alta[0]} ({nombres_femenino_alta[1]}°C)"
+        if contadores_sexo['NB'] > 0:
+            edad_promedio_nb = edad_noBinario / contadores_sexo['NB']
+        else:
+            edad_promedio_nb = 0
 
-        alert(resultado)
+        if total_mayores_edad > 0:
+            edad_promedio_mayores_edad = edad_mayores / total_mayores_edad
+        else:
+            edad_promedio_mayores_edad = 0
+
+        if total_menores_edad > 0:
+            temp_promedio_menores_edad = temperatura_menores / total_menores_edad
+        else:
+            temp_promedio_menores_edad = 0
+
+        print("\nResultados:")
+        print(f"Punto A: El sexo más ingresado fue {sexo_mas_ingresado}")
+        print(f"Punto B: Porcentaje de personas con fiebre: {porcentaje_fiebre}%, Sin fiebre: {porcentaje_sin_fiebre}%")
+
+        print("\nResultados según DNI:")
+        print(f"1) DNI terminados en 0 o 1: \n  - Cantidad de personas femeninas: {contadores_sexo['F']}\n"
+            f"  - Edad promedio de personas masculinas: {edad_promedio_masculino}\n"
+            f"  - Personas no binarias con más temperatura: {'' if not nombres_sexo_nb_temp_alta else nombres_sexo_nb_temp_alta}")
+
+        print(f"2) DNI terminados en 2 o 3: \n  - Cantidad de personas masculinas: {contadores_sexo['M']}\n"
+            f"  - Edad promedio de personas no binarias: {edad_promedio_nb}\n"
+            f"  - Personas femeninas con la temperatura más baja: {'' if not nombres_sexo_femenino_temp_baja else nombres_sexo_femenino_temp_baja}")
+
+        print(f"3) DNI terminados en 4 o 5: \n  - Cantidad de personas no binarias: {contadores_sexo['NB']}\n"
+            f"  - Edad promedio de personas femeninas: {edad_promedio_femenino}\n"
+            f"  - Personas masculinas con la temperatura más baja: {'' if not nombres_sexo_masculino_temp_baja else nombres_sexo_masculino_temp_baja}")
+
+        print(f"4) DNI terminados en 6 o 7: \n  - Cantidad de personas mayores de edad: {total_mayores_edad}\n"
+            f"  - Edad promedio en total de personas mayores de edad: {edad_promedio_mayores_edad}\n"
+            f"  - Personas masculinas con la temperatura más baja: {'' if not nombres_sexo_masculino_temp_baja else nombres_sexo_masculino_temp_baja}")
+
+        print(f"5) DNI terminados en 8 o 9: \n  - Cantidad de personas menores de edad: {total_menores_edad}\n"
+            f"  - Temperatura promedio en total de personas menores de edad: {temp_promedio_menores_edad}\n"
+            f"  - Personas femeninas con la temperatura más baja: {'' if not nombres_sexo_femenino_temp_baja else nombres_sexo_femenino_temp_baja}")
+
+        print("\nResultados para todos los alumnos:")
+        print(f"B: El sexo más ingresado fue {sexo_mas_ingresado}")
+        print(f"C: Porcentaje de personas con fiebre: {porcentaje_fiebre}%, Sin fiebre: {porcentaje_sin_fiebre}%")
             
 if __name__ == "__main__":
     app = App()
