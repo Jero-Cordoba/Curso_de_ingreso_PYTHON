@@ -126,6 +126,7 @@ class App(customtkinter.CTk):
                 fuego += 1
             elif self.lista_tipo_pokemones[i] == "Electrico":
                 electrico += 1
+# Se usa para acceder al diccionario de tipos y ver la cantidad de pokemones de cada tipo 
             
             if self.lista_poder_pokemones[i] > mas_poderoso["Poder"]:
                 mas_poderoso["Nombre"] = self.lista_nombre_pokemones[i]
@@ -136,6 +137,7 @@ class App(customtkinter.CTk):
                 menos_poderoso["Nombre"] = self.lista_nombre_pokemones[i]
                 menos_poderoso["Tipo"] = self.lista_tipo_pokemones[i]
                 menos_poderoso["Poder"] = self.lista_poder_pokemones[i]
+#Almacene la información del Pokémon con el poder más alto a medida que se recorren todos los Pokémon en la lista
                 
             if self.lista_poder_pokemones[i] > 100:
                 mayor_100 += 1

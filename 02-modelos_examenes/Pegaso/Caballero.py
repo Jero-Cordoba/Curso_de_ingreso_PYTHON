@@ -133,6 +133,7 @@ class App(customtkinter.CTk):
 
         iron_armor = sum(1 for i in range(len(self.lista_cosmos_guerreros)) if
                                         self.lista_cosmos_guerreros[i] > 85000 and self.lista_tipo_armadura_guerreros[i] == "Plata")
+#En resumen, esta línea de código cuenta cuántos guerreros tienen un cosmos mayor y tienen una armadura en la lista proporcionada.
 
         copper_armor = sum(1 for i in range(len(self.lista_cosmos_guerreros)) if
                                         self.lista_cosmos_guerreros[i] < 50000 and self.lista_tipo_armadura_guerreros[i] == "Bronce")

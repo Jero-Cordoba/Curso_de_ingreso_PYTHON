@@ -167,8 +167,13 @@ class App(customtkinter.CTk):
             30000, 16000, 25000, 30000, 16000, 25000, 30000, 16000, 25000, 30000,
             16000, 25000, 30000, 16000, 25000, 30000, 16000, 25000, 30000, 16000
         ]
+        
+        self.ventas = []
+        self.entradas_totales = 0
 
     def btn_cargar_ventas_on_click(self):
+        
+        
         for i in range(10):
             
             nombre = prompt("Ingrese el nombre del comprador:")

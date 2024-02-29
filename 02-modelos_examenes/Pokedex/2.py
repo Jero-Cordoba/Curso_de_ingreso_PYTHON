@@ -123,18 +123,21 @@ class App(customtkinter.CTk):
 
         cantidad_blanco = self.lista_color_pokemones.count("Blanco")
         print(f"Informe 1: Cantidad de pokemones de color blanco: {cantidad_blanco}")
+#En resumen, count() es utilizado para realizar un conteo específico dentro de una lista, en este caso, la cantidad de Pokémon de color amarillo
 
         max_altura_index = self.lista_altura_pokemones.index(max(self.lista_altura_pokemones))
         nombre_alto = self.lista_nombre_pokemones[max_altura_index]
         color_alto = self.lista_color_pokemones[max_altura_index]
         altura_alto = self.lista_altura_pokemones[max_altura_index]
         print(f"Informe 2: Pokemon más alto - Nombre: {nombre_alto}, Color: {color_alto}, Altura: {altura_alto} cm")
+#Se utiliza para encontrar el valor máximo en la lista de alturas y para encontrar el índice correspondiente en otras listas
 
         min_altura_index = self.lista_altura_pokemones.index(min(self.lista_altura_pokemones))
         nombre_bajo = self.lista_nombre_pokemones[min_altura_index]
         color_bajo = self.lista_color_pokemones[min_altura_index]
         altura_bajo = self.lista_altura_pokemones[min_altura_index]
         print(f"Informe 3: Pokemon más bajo - Nombre: {nombre_bajo}, Color: {color_bajo}, Altura: {altura_bajo} cm")
+#Se utiliza para encontrar el valor mínimo en la lista de alturas y para encontrar el índice correspondiente en otras listas
 
         cantidad_altura_mas_100 = sum(altura > 100 for altura in self.lista_altura_pokemones)
         print(f"Informe 4: Cantidad de pokemones con más de 100 cm de altura: {cantidad_altura_mas_100}")

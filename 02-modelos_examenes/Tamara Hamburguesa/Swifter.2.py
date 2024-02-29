@@ -173,6 +173,8 @@ class App(customtkinter.CTk):
             30000, 16000, 25000, 30000, 16000, 25000, 30000, 16000, 25000, 30000,
             16000, 25000, 30000, 16000, 25000, 30000, 16000, 25000, 30000, 16000
         ]
+        
+        self.lista_ventas = []
 
     def btn_cargar_ventas_on_click(self):
         for _ in range(10):
