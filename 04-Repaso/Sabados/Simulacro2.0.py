@@ -52,7 +52,6 @@ class App(customtkinter.CTk):
 
         self.lista_datos = [2,3,5,7,11,13]
 
-
     def btn_mostrar_on_click(self):
         masculino = 0; femenino = 0; otro = 0
         votos_giovani = 0; votos_gianni = 0; votos_esteban = 0; votos_totales = 0

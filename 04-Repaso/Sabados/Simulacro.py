@@ -52,7 +52,6 @@ class App(customtkinter.CTk):
 
         self.lista_datos = [2,3,5,7,11,13]
 
-
     def btn_mostrar_on_click(self):
         votantes_giovani = 0
         votantes_giani = 0
@@ -139,7 +138,6 @@ class App(customtkinter.CTk):
         print("Giovanni tiene un porcentaje de votos del: " + porcentaje_giovanni)
         print("Gianni tiene un porcentaje de votos del:" + porcentaje_gianni)
         print("Esteban tiene un porcentaje de votos del:" + porcentaje_esteban)
-            
             
 if __name__ == "__main__":
     app = App()

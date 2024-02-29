@@ -69,7 +69,7 @@ class App(customtkinter.CTk):
         total_personas = 5
         contadores_sexo = {'F': 0, 'M': 0, 'NB': 0}
         fiebre = 0; no_fiebre = 0
-        edad_masculino = 0;edad_noBinario = 0; edad_femenino = 0
+        edad_masculino = 0; edad_noBinario = 0; edad_femenino = 0
         total_mayores_edad = 0; total_menores_edad = 0
         edad_mayores = 0; temperatura_menores = 0
         nombres_sexo_masculino_temp_baja = []
