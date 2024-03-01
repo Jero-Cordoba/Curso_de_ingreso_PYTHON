@@ -7,6 +7,8 @@ import customtkinter
 '''
 nombre: Jerónimo
 apellido: Córdoba
+Turno Mañana
+DNI: 43083726
 ---
 Ejercicio: Parcial 
 ---
