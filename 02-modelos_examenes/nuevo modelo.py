@@ -36,15 +36,11 @@ class App(customtkinter.CTk):
         self.lista_datos = [2,3,5,7,11,13]
 
     def btn_mostrar_on_click(self):
-        total_casas = 10
-        litro_insecticida_costo = 1000
-        total_costo_insecticida = 0
-        total_minutos_trabajo = 0
+        casas = 10; litros = 1000; insecticida = 0; mosquitos = 0; minutos = 0
         total_productos_utilizados = 0
-        total_mosquitos = 0
         fumigadores = []
 
-        for i in range(total_casas):
+        for i in range(casas):
             color = input(f"Ingrese el color de la casa {i + 1} (negro, gris, mixto): ").lower()
             while color not in ['negro', 'gris', 'mixto']:
                 color = input("Color inválido. Ingrese el color de la casa (negro, gris, mixto): ").lower()
@@ -67,10 +63,10 @@ class App(customtkinter.CTk):
 
             nombre_fumigador = input(f"Ingrese el nombre del fumigador en la casa {i + 1}: ")
 
-            total_costo_insecticida += producto_utilizado * litro_insecticida_costo
-            total_minutos_trabajo += minutos_trabajo
+            insecticida += producto_utilizado * litros
+            minutos += minutos_trabajo
             total_productos_utilizados += producto_utilizado
-            total_mosquitos += cantidad_mosquitos
+            mosquitos += cantidad_mosquitos
 
             fumigadores.append({
                 'color': color,
@@ -81,15 +77,15 @@ class App(customtkinter.CTk):
                 'nombre_fumigador': nombre_fumigador
             })
 
-        promedio_mosquitos = total_mosquitos / total_casas
-        promedio_minutos_trabajo = total_minutos_trabajo / total_casas
-        promedio_producto_utilizado = total_productos_utilizados / total_casas
+        promedio_mosquitos = mosquitos / casas
+        promedio_minutos_trabajo = minutos / casas
+        promedio_producto_utilizado = total_productos_utilizados / casas
 
         print("\nResultados:")
         print(f"Promedio de mosquitos por metro cuadrado: {promedio_mosquitos}")
         print(f"Promedio de minutos de trabajo: {promedio_minutos_trabajo}")
         print(f"Promedio de producto utilizado: {promedio_producto_utilizado}")
-        print(f"Total costo de insecticida: {total_costo_insecticida}")
+        print(f"Total costo de insecticida: {insecticida}")
 
         print("\nDatos de los fumigadores:")
         
