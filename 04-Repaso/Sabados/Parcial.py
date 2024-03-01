@@ -26,7 +26,6 @@ class App(customtkinter.CTk):
 
         self.lista_datos = [2,3,5,7,11,13]
 
-
     def btn_mostrar_on_click(self):
         pass            
             
