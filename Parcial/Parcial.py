@@ -1,7 +1,7 @@
 import tkinter
 from tkinter.messagebox import showinfo as alert
 from tkinter.messagebox import askyesno as question
-from tkinter.simpledialog import askstring as prompt
+from tkinter.simpledialog import askstring as input
 import customtkinter
 
 '''
@@ -20,7 +20,7 @@ Tipo (gato ,perro o exotico)
 Peso (entre 10 y 80)
 Sexo( F o M )
 Edad(mayor a 0)
-Pedir datos por prompt y mostrar por print, se debe informar:
+Pedir datos por input y mostrar por print, se debe informar:
 Informe A- Cuál fue el sexo menos ingresado (F o M)
 Informe B- El porcentaje de mascotas hay por tipo (gato ,perro o exotico)
 Informe C- El nombre y tipo de la mascota menos pesada
@@ -56,20 +56,20 @@ class App(customtkinter.CTk):
         
         for i in range(mascotas):
             print(f"Ingrese los datos de la mascota {i+1}:")
-            nombre = prompt("Ingrese el nombre de tu mascota")
+            nombre = input("Ingrese el nombre de tu mascota")
             while not nombre:
                 print ("El nombre no puede estar vacío")
-                nombre = prompt("Ingrese el nombre de tu mascota")
+                nombre = input("Ingrese el nombre de tu mascota")
                 
-            tipo = prompt("Ingrese el tipo de mascota que tiene: (Ejemplo: perro, gato, exotico)")
+            tipo = input("Ingrese el tipo de mascota que tiene: (Ejemplo: perro, gato, exotico)")
             while tipo != "perro" or tipo != "gato" or tipo != "exotico":
                 print ("El tipo no puede estar vacío")
-                tipo = prompt("Ingrese el tipo de mascota que sea valido: perro, gato o exotico")
+                tipo = input("Ingrese el tipo de mascota que sea valido: perro, gato o exotico")
             
-            peso = float(prompt("Ingrese el peso de su mascota - debe estar entre 10 y 80 kilos"))
+            peso = float(input("Ingrese el peso de su mascota - debe estar entre 10 y 80 kilos"))
             while not peso or peso < 10 or peso > 80:
                 print ("El peso no puede estar vacío")
-                peso = float(prompt("Ingrese el peso de su mascota - debe estar entre 10 y 80 kilos"))
+                peso = float(input("Ingrese el peso de su mascota - debe estar entre 10 y 80 kilos"))
             
             sexo = input(f"Ingrese el sexo de {nombre} (F, M): ")
             while sexo != "F" and sexo != "M":
@@ -125,7 +125,7 @@ class App(customtkinter.CTk):
         
                 
             
-    if __name__ == "__main__":
-        app = App()
-        app.geometry("300x300")
-        app.mainloop()
+if __name__ == "__main__":
+    app = App()
+    app.geometry("300x300")
+    app.mainloop()
