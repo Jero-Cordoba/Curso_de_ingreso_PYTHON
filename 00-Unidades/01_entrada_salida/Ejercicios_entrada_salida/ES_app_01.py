@@ -55,10 +55,10 @@ class App(customtkinter.CTk):
         
         for i in range(mascotas):
             print(f"Ingrese los datos de la mascota {i+1}:")
-            nombre = input("Ingrese el nombre de tu mascota")
+            nombre = input("Ingrese el nombre de tu mascota: ")
             while not nombre:
                 print ("El nombre no puede estar vacío")
-                nombre = input("Ingrese el nombre de tu mascota")
+                nombre = input("Ingrese el nombre de tu mascota: ")
                 
             tipo = input("Ingrese el tipo de mascota que tiene: (Ejemplo: perro, gato, exotico)")
             if tipo != "perro" and tipo != "gato" and tipo != "exotico":
