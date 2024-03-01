@@ -47,10 +47,11 @@ class App(customtkinter.CTk):
 
     def btn_mostrar_on_click(self):
         mascotas = 5
-        sexo_menor = 0; 
-        edad_mascota = 0; mas_joven = 0
+        masculino = 0; femenino = 0;sexo_menor = 0; 
+        edad_mascota = 0; mas_joven = None; perro_joven = None
+        perro = 0; gato = 0; exotico = 0
         porcentaje_perro = 0; porcentaje_gato = 0; porcentaje_exotico = 0
-        promedio_peso = 0; menos_pesada = 0
+        promedio_peso = 0; menos_pesada = None; peso_menor = float ('inf'); peso_total = 0
         
         
         for i in range(mascotas):
@@ -78,12 +79,52 @@ class App(customtkinter.CTk):
             while edad <= 0:
                 edad = int(input("Edad inválida. Ingrese la edad: "))        
             
-#A- Cuál fue el sexo menos ingresado (F o M)
+
+#C) El nombre y tipo de la mascota menos pesada
+            if peso < peso_menor:
+                peso_menor = peso
+                menos_pesada = (nombre, tipo)
+                
+#D)- El nombre del perro más joven
+            if tipo == "perro":
+                if mas_joven == None or edad < edad_mascota:
+                    mas_joven = edad
+                    perro_mas_joven = nombre
+                
+#E)- El promedio de peso de todas las mascotas
+            peso_total += peso 
+            promedio_peso = peso_total / mascotas
+                
+#A)- Cuál fue el sexo menos ingresado (F o M)
+            if sexo == "F":
+                femenino += 1
             if sexo == "M":
+                masculino +=1
+            if sexo == "M" and sexo_menor == 0:
+                sexo_menor += 1
+            if sexo == "F" and sexo_menor == 0:
+                sexo_menor += 1
+            
+#B)- El porcentaje de mascotas hay por tipo (gato ,perro o exotico)
+            if tipo == "perro":
+                perro += 1
+            if tipo == "gato":
+                gato += 1
+            if tipo == "exotico":
+                exotico += 1
+            
+            porcentaje_perro = (perro / mascotas)*100
+            porcentaje_gato = (gato / mascotas)*100
+            porcentaje_exotico = (exotico / mascotas)*100
+            
+        print(f"Informe A- Cuál fue el sexo menos ingresado (F o M): {sexo_menor}")
+        print(f"Informe B- El porcentaje de mascotas hay por tipo (gato ,perro o exotico): {porcentaje_perro}, {porcentaje_gato}, {porcentaje_exotico}")
+        print(f"Informe C- El nombre y tipo de la mascota menos pesada: {menos_pesada}")    
+        print(f"Informe D- El nombre del perro más joven: {perro_mas_joven}")
+        print(f"Informe E- El promedio de peso de todas las mascotas: {promedio_peso}")
+        
                 
-                
-                
-                
+            
     if __name__ == "__main__":
     app = App()
     app.geometry("300x300")
